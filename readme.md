@@ -1,39 +1,10 @@
-# Cheems
-
-## PENGELOLAAN EKSPEDISI CHEEMS
+# MamangForce
 
 ### Anggota Kelompok :
 
+- 1118050 - Femi Elice
 - 1119002 - Albertus Angkuw
-- 1119004 - Calvin Jeremy
-- 1119006 - William Juniar
-- 1119028 - Aji Parama
-- 1119038 - Elangel Neilea
-
-## Tools, Library, and Framework
-
-### Bahasa Pemrograman
-
-- [Go Language](https://golang.org/)
-  <br>
-  Go is an open source programming language that makes it easy to build simple, reliable, and efficient software
-
-### Dukungan Framework
-
-- [Vue.js](https://vuejs.org/)
-  <br>
-  Vue.js is a progressive, incrementally-adoptable JavaScript framework for building UI on the web
-- [Fiber](https://docs.gofiber.io/)
-  <br>
-  Fiber is an Express inspired web framework built on top of Fasthttp, the fastest HTTP engine for Go. Designed to ease things up for fast development with zero memory allocation and performance in mind.
-
-### Dukungan Template
-
-- [ArchitectUI](https://demo.dashboardpack.com/architectui-vue-free/#/)
-  <br>
-  ArchitectUI is one of the most popular admin dashboard templates ever released. It is used by
-
-<br>
+- 1119008 - Christian Satya Dharma
 
 ## GIT (Version Control)
 
