@@ -3,7 +3,10 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - AttackingTeam
+  - Feet
+  - Bullet
   layers:
   - Default
   - TransparentFX
@@ -15,9 +18,9 @@ TagManager:
   - 
   - 
   - 
-  - 
-  - 
-  - 
+  - Background
+  - Foreground
+  - Main Layer
   - 
   - 
   - 
@@ -41,12 +44,12 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Layer 1
+  - name: Background
     uniqueID: 2425651459
     locked: 0
-  - name: Layer 2
+  - name: Foreground
     uniqueID: 4250941897
     locked: 0
-  - name: Layer 3
+  - name: Main Layer
     uniqueID: 4189426099
     locked: 0
