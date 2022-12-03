@@ -9,7 +9,7 @@ public class Heavy_Move : MonoBehaviour {
 	//Speed and jump vary between characters
 	public bool heavy_spawn;
 	public static float Speed = 4.8f;
-	public static float Jump = 6.5f;
+	public static float Jump = 9.0f;
 	public static bool grounded;
 	public bool ground;
 	public static bool Scout = false;
