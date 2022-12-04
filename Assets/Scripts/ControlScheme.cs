@@ -12,6 +12,7 @@ public class ControlScheme : MonoBehaviour
 
     public KeyCode specialGun = KeyCode.Z;
 
+    public PlayerController player;
     
     // Start is called before the first frame update
     void Start()
@@ -22,6 +23,21 @@ public class ControlScheme : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-     
+      if(Input.GetKey(KeyCode.LeftArrow)){
+        player.Backward();
+      }
+      if(Input.GetKey(KeyCode.RightArrow)){
+        player.Forward();
+      }
+      if(Input.GetKey(KeyCode.UpArrow)){
+        player.Jump();
+      }
+
+      if(Input.GetKeyDown(KeyCode.X)){
+        player.ShootMainGun();
+      }
+      if(Input.GetKeyDown(KeyCode.Z)){
+        player.ShootSpecialGun();
+      }
     }
 }
