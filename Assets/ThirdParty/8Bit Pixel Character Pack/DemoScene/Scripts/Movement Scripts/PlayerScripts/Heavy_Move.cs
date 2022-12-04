@@ -2,14 +2,14 @@
 using System.Collections;
 
 public class Heavy_Move : MonoBehaviour {
-	public KeyCode shootKey = KeyCode.T;
+	public KeyCode shootKey = KeyCode.X;
 	public Transform sprite;
 	// Use this for initialization
 	Animator anim;
 	//Speed and jump vary between characters
 	public bool heavy_spawn;
-	public static float Speed = 0.8f;
-	public static float Jump = 2.5f;
+	public static float Speed = 4.8f;
+	public static float Jump = 9.0f;
 	public static bool grounded;
 	public bool ground;
 	public static bool Scout = false;

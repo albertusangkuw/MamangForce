@@ -10,7 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1182447646787049666}
   - component: {fileID: 591112696524969773}
-  - component: {fileID: 5587093250133114318}
+  - component: {fileID: -7260478738324039495}
+  - component: {fileID: 670492080933507417}
   m_Layer: 0
   m_Name: Ground_Grass
   m_TagString: Untagged
@@ -86,7 +87,28 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &5587093250133114318
+--- !u!50 &-7260478738324039495
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2280196531528187347}
+  m_BodyType: 2
+  m_Simulated: 0
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!61 &670492080933507417
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

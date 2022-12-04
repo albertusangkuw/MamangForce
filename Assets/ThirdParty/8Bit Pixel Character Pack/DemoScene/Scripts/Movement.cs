@@ -5,9 +5,9 @@ public class Movement : MonoBehaviour{
 	public bool canDoubleJump = false;
 	public static bool facingRight;
 
-	public KeyCode jumpKey = KeyCode.W;
-	public KeyCode leftKey = KeyCode.A;
-	public KeyCode rightKey = KeyCode.D;
+	public KeyCode jumpKey = KeyCode.UpArrow;
+	public KeyCode leftKey = KeyCode.LeftArrow;
+	public KeyCode rightKey = KeyCode.RightArrow;
 	public static float timer = 5.0f;
 	public void Motion (float speed, float jump, Rigidbody2D rdbdy, bool grounded, bool isScout, Transform sprite){
 		/*if(spyBullet.freezePlayer){
