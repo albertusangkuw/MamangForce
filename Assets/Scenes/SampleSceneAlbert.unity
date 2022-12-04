@@ -1258,6 +1258,11 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 12
       objectReference: {fileID: 0}
+    - target: {fileID: 7451542563666369922, guid: c0423fc0a9ac348b396c324299c4501c,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7451542563666369925, guid: c0423fc0a9ac348b396c324299c4501c,
         type: 3}
       propertyPath: m_Enabled
@@ -1805,6 +1810,38 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2001213260 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3853750598210318149, guid: f79bccedbd9ed665a8672e97cd83a95e,
+    type: 3}
+  m_PrefabInstance: {fileID: 1852614991786485735}
+  m_PrefabAsset: {fileID: 0}
+--- !u!61 &2001213265
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2001213260}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 4, y: 1}
+    newSize: {x: 12, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 2
+    adaptiveTiling: 0
+  m_AutoTiling: 1
+  serializedVersion: 2
+  m_Size: {x: 4, y: 1}
+  m_EdgeRadius: 0
 --- !u!1 &2030791115 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7451542563666369928, guid: c0423fc0a9ac348b396c324299c4501c,
@@ -1824,7 +1861,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 10
-  jumpSpeed: 50
+  jumpSpeed: 500
   mainGunPower: 100
   specialGunPower: 100
   specialGunAmmo: 4
