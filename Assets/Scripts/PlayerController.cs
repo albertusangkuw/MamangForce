@@ -12,13 +12,14 @@ enum PlayerState {
 public class PlayerController : MonoBehaviour
 {
     public int moveSpeed = 10;
-    public int jumpSpeed = 500;
-    public int mainGunPower = 100;
+    public int jumpSpeed = 450;
+    public int mainGunPower = 250;
     public int specialGunPower = 100;
     public int specialGunAmmo = 4;
     public int currentState = (int) PlayerState.Idle;
 
     private bool isOnGround = false;
+    private bool isFacingForward = true;
     public Animator animationComponent;
     public Rigidbody2D rigidComponent;
     public GameObject mainBullet;
@@ -34,22 +35,22 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-      //animationComponent.SetInteger("CurrentState",currentState);
+     //animationComponent.SetInteger("CurrentState",currentState);
+     animationComponent.SetFloat ("Speed", Mathf.Abs(rigidComponent.velocity.x));
+		 animationComponent.SetBool ("touchingGround", isOnGround);
      Debug.Log(((PlayerState)currentState).ToString() + " ; " + isOnGround); 
     }
     public void Forward(){
       currentState = (int) PlayerState.Walk;
-      if(transform.rotation.y != 0){
-        transform.rotation.Set(transform.rotation.x,0,transform.rotation.z, transform.rotation.w);
-      }
-      rigidComponent.AddForce(Vector2.right * moveSpeed) ;
+      transform.rotation = Quaternion.Euler(new Vector3(0,0,0));
+      rigidComponent.AddForce(Vector2.right * moveSpeed);
+      isFacingForward = true;
     }
     public void Backward(){
       currentState = (int) PlayerState.Walk;
-      if(transform.rotation.y != 180){
-        transform.rotation.Set(transform.rotation.x,180,transform.rotation.z, transform.rotation.w);
-      }
+      transform.rotation = Quaternion.Euler(new Vector3(0,180,0));
       rigidComponent.AddForce(Vector2.left * moveSpeed);
+      isFacingForward = false;
     }
 
     public void Jump(){
@@ -63,7 +64,11 @@ public class PlayerController : MonoBehaviour
 
     public void ShootMainGun(){
       currentState  = (int) PlayerState.Shoot;
-      Instantiate(mainBullet, transform.position, mainBullet.transform.rotation);
+      Quaternion rotation = Quaternion.Euler(new Vector3(0,0,0));
+      if(!isFacingForward){
+        rotation = Quaternion.Euler(new Vector3(0,180,0));
+      }
+      Instantiate(mainBullet, transform.position, rotation);
     }
 
     public void ShootSpecialGun(){
@@ -78,7 +83,7 @@ public class PlayerController : MonoBehaviour
     }
 
     private void OnTriggerEnter2D(Collider2D other) {
-      if(other.gameObject.CompareTag("Ground")) {
+      if(other.gameObject.CompareTag("Object")) {
         currentState = (int) PlayerState.Idle;
         isOnGround = true;
       }
