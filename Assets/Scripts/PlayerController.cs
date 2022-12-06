@@ -17,7 +17,7 @@ public class PlayerController : MonoBehaviour
     public int specialGunPower = 100;
     public int specialGunAmmo = 4;
     public int currentState = (int) PlayerState.Idle;
-
+    public float gapGun = 0.7f;
     private bool isOnGround = false;
     private bool isFacingForward = true;
     public Animator animationComponent;
@@ -37,8 +37,8 @@ public class PlayerController : MonoBehaviour
     {
      //animationComponent.SetInteger("CurrentState",currentState);
      animationComponent.SetFloat ("Speed", Mathf.Abs(rigidComponent.velocity.x));
-		 animationComponent.SetBool ("touchingGround", isOnGround);
-     Debug.Log(((PlayerState)currentState).ToString() + " ; " + isOnGround); 
+		 //animationComponent.SetBool ("touchingGround", isOnGround);
+     //Debug.Log(((PlayerState)currentState).ToString() + " ; " + isOnGround + ";" + rigidComponent.velocity + "u/s" ); 
     }
     public void Forward(){
       currentState = (int) PlayerState.Walk;
@@ -54,7 +54,7 @@ public class PlayerController : MonoBehaviour
     }
 
     public void Jump(){
-      if(!isOnGround){
+      if(!isOnGround || rigidComponent.velocity[1] > 5){
         return;
       }
       rigidComponent.AddForce(Vector2.up * jumpSpeed);
@@ -64,21 +64,36 @@ public class PlayerController : MonoBehaviour
 
     public void ShootMainGun(){
       currentState  = (int) PlayerState.Shoot;
+      
       Quaternion rotation = Quaternion.Euler(new Vector3(0,0,0));
+      Vector2 gapDir = Vector2.right;
       if(!isFacingForward){
         rotation = Quaternion.Euler(new Vector3(0,180,0));
+        gapDir = Vector2.left;
       }
-      Instantiate(mainBullet, transform.position, rotation);
+      Vector2 position = transform.position;
+      position += gapDir * gapGun;
+      Instantiate(mainBullet, position, rotation);
     }
 
     public void ShootSpecialGun(){
       currentState  = (int) PlayerState.Shoot;
       Vector2 v = transform.position;
       int burst = 5;
-      for (int i = 0; i < burst; i++)
-      {
-        v += Vector2.up * i;
-        Instantiate(mainBullet, v, mainBullet.transform.rotation);
+      Quaternion rotation = Quaternion.Euler(new Vector3(0,0,0));
+      Vector2 gapDir = Vector2.right;
+      if(!isFacingForward){
+        rotation = Quaternion.Euler(new Vector3(0,180,0));
+        gapDir = Vector2.left;
+      }
+      for (int i = 0; i < burst; i++){
+        Vector2 margin = Vector2.up;
+        if(i > burst/2){
+          margin = Vector2.down;
+        }
+        v += margin * (i+1)/10;
+        v += gapDir * gapGun;
+        Instantiate(mainBullet, v, rotation);
       }
     }
 

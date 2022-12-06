@@ -21,7 +21,7 @@ public class ControlScheme : MonoBehaviour
     }
 
     // Update is called once per frame
-    void LateUpdate()
+    void Update()
     {
       if(Input.GetKey(KeyCode.LeftArrow)){
         player.Backward();
