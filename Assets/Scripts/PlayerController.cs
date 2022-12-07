@@ -11,12 +11,15 @@ enum PlayerState {
 }
 public class PlayerController : MonoBehaviour
 {
-    public int moveSpeed = 10;
-    public int jumpSpeed = 450;
+    public int moveSpeed = 15;
+
+    public Vector2 maxVelocity = new Vector2(9,5);
+    public int jumpSpeed = 600;
     public int mainGunPower = 250;
     public int specialGunPower = 100;
     public int specialGunAmmo = 4;
     public int currentState = (int) PlayerState.Idle;
+    public int health = 100;
     public float gapGun = 0.7f;
     private bool isOnGround = false;
     private bool isFacingForward = true;
@@ -25,11 +28,13 @@ public class PlayerController : MonoBehaviour
     public GameObject mainBullet;
     public GameObject specialBullet;
 
+    private int originalMoveSpeed ;
     // Start is called before the first frame update
     void Start()
     {
         rigidComponent = GetComponent<Rigidbody2D>();
         animationComponent = GetComponent<Animator>();
+        originalMoveSpeed = moveSpeed;
     }
 
     // Update is called once per frame
@@ -38,23 +43,33 @@ public class PlayerController : MonoBehaviour
      //animationComponent.SetInteger("CurrentState",currentState);
      animationComponent.SetFloat ("Speed", Mathf.Abs(rigidComponent.velocity.x));
 		 //animationComponent.SetBool ("touchingGround", isOnGround);
-     //Debug.Log(((PlayerState)currentState).ToString() + " ; " + isOnGround + ";" + rigidComponent.velocity + "u/s" ); 
+     Debug.Log(((PlayerState)currentState).ToString() + " ; " + isOnGround + ";" + rigidComponent.velocity.x + "u/s" ); 
     }
     public void Forward(){
+      if(Mathf.Abs(rigidComponent.velocity.x) > maxVelocity.x){
+        return;
+      }
       currentState = (int) PlayerState.Walk;
       transform.rotation = Quaternion.Euler(new Vector3(0,0,0));
       rigidComponent.AddForce(Vector2.right * moveSpeed);
       isFacingForward = true;
     }
     public void Backward(){
+      if(Mathf.Abs(rigidComponent.velocity.x) > maxVelocity.x){
+        return;
+      }
       currentState = (int) PlayerState.Walk;
       transform.rotation = Quaternion.Euler(new Vector3(0,180,0));
       rigidComponent.AddForce(Vector2.left * moveSpeed);
       isFacingForward = false;
     }
 
+    public void Stop(){
+      rigidComponent.velocity.Set(0,0);
+    }
+
     public void Jump(){
-      if(!isOnGround || rigidComponent.velocity[1] > 5){
+      if(!isOnGround || rigidComponent.velocity[1] > maxVelocity.y){
         return;
       }
       rigidComponent.AddForce(Vector2.up * jumpSpeed);
@@ -101,6 +116,9 @@ public class PlayerController : MonoBehaviour
       if(other.gameObject.CompareTag("Object")) {
         currentState = (int) PlayerState.Idle;
         isOnGround = true;
+      }
+      if(other.gameObject.CompareTag("Bullet")) {
+        currentState = (int) PlayerState.Dead;
       }
 
     }

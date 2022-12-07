@@ -21,7 +21,7 @@ public class ControlScheme : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
       if(Input.GetKey(KeyCode.LeftArrow)){
         player.Backward();
@@ -38,6 +38,13 @@ public class ControlScheme : MonoBehaviour
       }
       if(Input.GetKeyDown(KeyCode.Z)){
         player.ShootSpecialGun();
+      }
+      
+      if(Input.GetKeyUp(KeyCode.LeftArrow)){
+        player.Stop();
+      }
+      if(Input.GetKeyUp(KeyCode.RightArrow)){
+        player.Stop();
       }
     }
 }
