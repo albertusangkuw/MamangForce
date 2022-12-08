@@ -8,6 +8,8 @@ TagManager:
   - Feet
   - Bullet
   - Ground
+  - Object
+  - Ladder
   layers:
   - Default
   - TransparentFX

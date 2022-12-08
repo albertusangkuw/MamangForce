@@ -8,7 +8,7 @@ public class Bullet : MonoBehaviour
     public Vector2 direction = Vector2.right;
 
     public float range = 12;
-
+    public GameObject whiteList;
     private Vector2 initialDirection;
     // Start is called before the first frame update
     void Start()
@@ -20,8 +20,18 @@ public class Bullet : MonoBehaviour
     void Update()
     {
       transform.Translate(direction * Time.deltaTime * moveSpeed);
-      if(initialDirection.x+range < transform.position.x){
+      if(Mathf.Abs(initialDirection.x)+range < Mathf.Abs(transform.position.x)){
           Destroy(gameObject);
       }
+    }
+
+    private void OnTriggerEnter2D(Collider2D other) {
+      if(other.gameObject.Equals(whiteList)) {
+        return;
+      }
+      if(other.gameObject.CompareTag("Object")){
+        Destroy(other.gameObject);
+      }
+      Destroy(gameObject);
     }
 }
