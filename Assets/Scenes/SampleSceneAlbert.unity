@@ -2244,7 +2244,7 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7812183762947697694, guid: f8747dad001a64869a7f289a1690ba39,
-        type: 3}
+        type: 23}
       propertyPath: m_Name
       value: Oil_Red
       objectReference: {fileID: 0}
