@@ -23,6 +23,7 @@ public class PlayerController : MonoBehaviour
     public float gapGun = 0.7f;
     private bool isOnGround = false;
     private bool isFacingForward = true;
+    
     public Animator animationComponent;
     public Rigidbody2D rigidComponent;
     public GameObject mainBullet;
@@ -35,6 +36,8 @@ public class PlayerController : MonoBehaviour
         rigidComponent = GetComponent<Rigidbody2D>();
         animationComponent = GetComponent<Animator>();
         originalMoveSpeed = moveSpeed;
+        //colliderSize = GetComponent<CapsuleCollider2D>().size;
+        
     }
 
     // Update is called once per frame
@@ -78,6 +81,9 @@ public class PlayerController : MonoBehaviour
     }
 
     public void ShootMainGun(){
+      if(currentState == (int) PlayerState.Shoot){
+        return;
+      }
       currentState  = (int) PlayerState.Shoot;
       
       Quaternion rotation = Quaternion.Euler(new Vector3(0,0,0));
@@ -87,8 +93,11 @@ public class PlayerController : MonoBehaviour
         gapDir = Vector2.left;
       }
       Vector2 position = transform.position;
-      position += gapDir * gapGun;
-      Instantiate(mainBullet, position, rotation);
+      position += gapDir * gapGun * Time.deltaTime ;
+      GameObject bulletIntance  = Instantiate(mainBullet, position, rotation);
+      Bullet b = bulletIntance.GetComponent<Bullet>();
+      b.whiteList = gameObject;
+      currentState  = (int) PlayerState.Idle;
     }
 
     public void ShootSpecialGun(){
@@ -109,6 +118,7 @@ public class PlayerController : MonoBehaviour
         v += margin * (i+1)/10;
         v += gapDir * gapGun;
         Instantiate(mainBullet, v, rotation);
+        currentState  = (int) PlayerState.Idle;
       }
     }
 

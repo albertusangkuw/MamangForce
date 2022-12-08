@@ -29,6 +29,9 @@ public class Bullet : MonoBehaviour
       if(other.gameObject.Equals(whiteList)) {
         return;
       }
+      if(other.gameObject.CompareTag("Object")){
+        Destroy(other.gameObject);
+      }
       Destroy(gameObject);
     }
 }
