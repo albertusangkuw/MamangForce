@@ -11,7 +11,7 @@ enum PlayerState {
 }
 public class PlayerController : MonoBehaviour
 {
-    public int moveSpeed = 15;
+    public int moveSpeed = 30;
 
     public Vector2 maxVelocity = new Vector2(9,5);
     public int jumpSpeed = 600;
