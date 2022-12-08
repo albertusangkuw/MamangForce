@@ -3,7 +3,13 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - AttackingTeam
+  - Feet
+  - Bullet
+  - Ground
+  - Object
+  - Ladder
   layers:
   - Default
   - TransparentFX
