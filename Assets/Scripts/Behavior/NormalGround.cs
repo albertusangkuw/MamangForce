@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DetectCollision : MonoBehaviour
+public class NormalGround : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()
@@ -15,10 +15,4 @@ public class DetectCollision : MonoBehaviour
     {
         
     }
-
-    void OnTriggerEnter(Collider other){
-        Destroy(gameObject);
-        Destroy(other.gameObject);
-    }
-
 }

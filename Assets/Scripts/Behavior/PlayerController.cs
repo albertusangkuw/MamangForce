@@ -23,11 +23,19 @@ public class PlayerController : MonoBehaviour
     public float gapGun = 0.7f;
     private bool isOnGround = false;
     private bool isFacingForward = true;
+    private bool isLadder;
+    private bool isClimbing;
     
     public Animator animationComponent;
     public Rigidbody2D rigidComponent;
     public GameObject mainBullet;
     public GameObject specialBullet;
+
+    private float vertical;
+    private float speed = 8f;
+    
+
+    private float defaultGravityScale ;
 
     private int originalMoveSpeed ;
     // Start is called before the first frame update
@@ -36,6 +44,7 @@ public class PlayerController : MonoBehaviour
         rigidComponent = GetComponent<Rigidbody2D>();
         animationComponent = GetComponent<Animator>();
         originalMoveSpeed = moveSpeed;
+        defaultGravityScale =  rigidComponent.gravityScale;
         //colliderSize = GetComponent<CapsuleCollider2D>().size;
         
     }
@@ -43,11 +52,24 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-     //animationComponent.SetInteger("CurrentState",currentState);
-     animationComponent.SetFloat ("Speed", Mathf.Abs(rigidComponent.velocity.x));
-		 //animationComponent.SetBool ("touchingGround", isOnGround);
-     Debug.Log(((PlayerState)currentState).ToString() + " ; " + isOnGround + ";" + rigidComponent.velocity.x + "u/s" ); 
+      //animationComponent.SetInteger("CurrentState",currentState);
+      animationComponent.SetFloat ("Speed", Mathf.Abs(rigidComponent.velocity.x));
+      //animationComponent.SetBool ("touchingGround", isOnGround);
+      Debug.Log(((PlayerState)currentState).ToString() + " ; " + isOnGround + ";" + rigidComponent.velocity.x + "u/s" ); 
+      vertical = Input.GetAxisRaw("Vertical");
     }
+
+    private void FixedUpdate()
+    {
+        if (isClimbing){
+            rigidComponent.gravityScale = 0f;
+            rigidComponent.velocity = new Vector2(rigidComponent.velocity.x, vertical * speed);
+        }
+        else{
+            rigidComponent.gravityScale =defaultGravityScale;
+        }
+    }
+
     public void Forward(){
       if(Mathf.Abs(rigidComponent.velocity.x) > maxVelocity.x){
         return;
@@ -57,6 +79,7 @@ public class PlayerController : MonoBehaviour
       rigidComponent.AddForce(Vector2.right * moveSpeed);
       isFacingForward = true;
     }
+    
     public void Backward(){
       if(Mathf.Abs(rigidComponent.velocity.x) > maxVelocity.x){
         return;
@@ -66,11 +89,11 @@ public class PlayerController : MonoBehaviour
       rigidComponent.AddForce(Vector2.left * moveSpeed);
       isFacingForward = false;
     }
-
+    
     public void Stop(){
       rigidComponent.velocity.Set(0,0);
     }
-
+    
     public void Jump(){
       if(!isOnGround || rigidComponent.velocity[1] > maxVelocity.y){
         return;
@@ -78,6 +101,12 @@ public class PlayerController : MonoBehaviour
       rigidComponent.AddForce(Vector2.up * jumpSpeed);
       currentState  = (int) PlayerState.Jump;
       isOnGround = false;
+    }
+
+    public void Climb(float verticalAxisRaw){
+      if (isLadder && Mathf.Abs(verticalAxisRaw) > 0f){
+          isClimbing = true;
+      }
     }
 
     public void ShootMainGun(){
@@ -123,14 +152,27 @@ public class PlayerController : MonoBehaviour
     }
 
     private void OnTriggerEnter2D(Collider2D other) {
-      if(other.gameObject.CompareTag("Object")) {
+      if(other.CompareTag("Object")) {
         currentState = (int) PlayerState.Idle;
         isOnGround = true;
       }
-      if(other.gameObject.CompareTag("Bullet")) {
+      if(other.CompareTag("Bullet")) {
         currentState = (int) PlayerState.Dead;
+        //TO DO:
+      }
+      if (other.CompareTag("Ladder")){
+          isLadder = true;
       }
 
+    }
+
+     private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Ladder"))
+        {
+            isLadder = false;
+            isClimbing = false;
+        }
     }
 
 
