@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-enum PlayerState {
+public enum PlayerState {
   Idle,
   Walk,
   Jump,
@@ -18,7 +18,7 @@ public class PlayerController : MonoBehaviour
     public int mainGunPower = 250;
     public int specialGunPower = 100;
     public int specialGunAmmo = 4;
-    public int currentState = (int) PlayerState.Idle;
+    private int currentState = (int) PlayerState.Idle;
     public int health = 100;
     public float gapGun = 0.7f;
     private bool isOnGround = false;
@@ -175,5 +175,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-
+    public PlayerState GetCurrentState(){
+       return (PlayerState) currentState;
+    }
 }
