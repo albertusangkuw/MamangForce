@@ -36,12 +36,13 @@ public class ControlScheme : MonoBehaviour
       if(Input.GetKey(KeyCode.RightArrow)){
         player.Forward();
       }
+      
       if(Input.GetKey(KeyCode.UpArrow)){
+        player.Climb(Input.GetAxisRaw("Vertical"));
         player.Jump();
       }
 
-      
-      
+            
       if(Input.GetKeyUp(KeyCode.LeftArrow)){
         player.Stop();
       }

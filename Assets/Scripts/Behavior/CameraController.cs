@@ -10,6 +10,7 @@ public class CameraController : MonoBehaviour
 
     public float[] minPosition = new float[3]{-19, -9, 0};
     public float[] maxPosition = new float[3]{37,10, 0};
+    
     // Start is called before the first frame update
     void Start()
     {
