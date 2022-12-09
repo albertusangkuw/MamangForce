@@ -17,7 +17,9 @@ public class DestructibleItems : MonoBehaviour
         
     }
     private void OnTriggerEnter2D(Collider2D other) {
-        //Destroy(gameObject);
+        if(other.gameObject.CompareTag("Bullet")){
+           Destroy(gameObject);
+        }
     }
 }
 

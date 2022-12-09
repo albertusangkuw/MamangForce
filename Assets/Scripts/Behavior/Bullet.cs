@@ -9,7 +9,7 @@ public class Bullet : MonoBehaviour
 
     public float range = 12;
     public GameObject whiteList;
-    private Vector2 initialDirection;
+    protected Vector2 initialDirection;
     // Start is called before the first frame update
     void Start()
     {
@@ -28,6 +28,9 @@ public class Bullet : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other) {
       if(other.gameObject.Equals(whiteList)) {
         return;
+      }
+      if(other.gameObject.CompareTag("Ladder")){
+         return;
       }
       if(other.gameObject.CompareTag("Object")){
         Destroy(other.gameObject);
