@@ -10,6 +10,7 @@ TagManager:
   - Ground
   - Object
   - Ladder
+  - EnemyDoor
   layers:
   - Default
   - TransparentFX

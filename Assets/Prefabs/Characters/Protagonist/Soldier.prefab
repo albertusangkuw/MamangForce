@@ -46,6 +46,8 @@ GameObject:
   - component: {fileID: 3999557743170488859}
   - component: {fileID: 3999557743170488856}
   - component: {fileID: 3999557743170488857}
+  - component: {fileID: 7376073556628790469}
+  - component: {fileID: 5595305093284873542}
   m_Layer: 0
   m_Name: Soldier
   m_TagString: AttackingTeam
@@ -135,7 +137,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.015, y: -0.07912409}
+  m_Offset: {x: -0.014999999, y: 0.0027027167}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -146,7 +148,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.05, y: 0.021752134}
+  m_Size: {x: 0.05, y: 0.18540576}
   m_EdgeRadius: 0
 --- !u!50 &3999557743170488858
 Rigidbody2D:
@@ -196,7 +198,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3999557743170488863}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 44d4b1a30811bb04197bf89ebca5e300, type: 3}
   m_Name: 
@@ -222,7 +224,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.015, y: 0}
+  m_Offset: {x: -0.012651562, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -233,8 +235,52 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.05, y: 0.19}
+  m_Size: {x: 0.054696873, y: 0.19}
   m_EdgeRadius: 0
+--- !u!114 &7376073556628790469
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3999557743170488863}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 805f50a49fa77c55d95283fd1997cba4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 30
+  maxVelocity: {x: 9, y: 5}
+  jumpSpeed: 600
+  mainGunPower: 250
+  specialGunPower: 100
+  specialGunAmmo: 4
+  health: 100
+  gapGun: 0.7
+  animationComponent: {fileID: 3999557743170488859}
+  rigidComponent: {fileID: 3999557743170488858}
+  mainBullet: {fileID: 9051554397422233366, guid: e1d72a7f391d083298c3acba2f8ae7e6,
+    type: 3}
+  specialBullet: {fileID: 3453597213341460731, guid: d78743c69278d4c7890f7580582d4fcf,
+    type: 3}
+--- !u!114 &5595305093284873542
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3999557743170488863}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 282c92c9813746560991d4ccf8d1b80b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  right: 275
+  left: 276
+  jump: 273
+  mainGun: 120
+  specialGun: 122
+  player: {fileID: 7376073556628790469}
 --- !u!1 &3999557743253100504
 GameObject:
   m_ObjectHideFlags: 0
