@@ -19,22 +19,26 @@ public class Bullet : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-      transform.Translate(direction * Time.deltaTime * moveSpeed);
-      if(Mathf.Abs(initialDirection.x)+range < Mathf.Abs(transform.position.x)){
-          Destroy(gameObject);
-      }
+        transform.Translate(direction * Time.deltaTime * moveSpeed);
+        if (Mathf.Abs(initialDirection.x) + range < Mathf.Abs(transform.position.x))
+        {
+            Destroy(gameObject);
+        }
     }
 
-    private void OnTriggerEnter2D(Collider2D other) {
-      if(other.gameObject.Equals(whiteList)) {
-        return;
-      }
-      if(other.gameObject.CompareTag("Ladder")){
-         return;
-      }
-      if(other.gameObject.CompareTag("Object")){
-        Destroy(other.gameObject);
-      }
-      Destroy(gameObject);
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.Equals(whiteList))
+        {
+            return;
+        }
+        if (other.gameObject.CompareTag("Ladder"))
+        {
+            return;
+        }
+        // if(other.gameObject.CompareTag("Object")){
+        //   Destroy(other.gameObject);
+        // }
+        Destroy(gameObject);
     }
 }

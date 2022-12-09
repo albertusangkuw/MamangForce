@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 6190343913192732688}
   - component: {fileID: 2956082214057170061}
   - component: {fileID: -6904700923188913739}
+  - component: {fileID: 3517907217785035851}
   m_Layer: 0
   m_Name: Ground_Only_Rocks
   m_TagString: Object
@@ -200,3 +201,15 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!114 &3517907217785035851
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 395417614950977386}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04721d5dc71ba48b3b71a8e8fc78a146, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
