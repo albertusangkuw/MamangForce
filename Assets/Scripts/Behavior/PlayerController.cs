@@ -15,24 +15,23 @@ public class PlayerController : MonoBehaviour
 
     public Vector2 maxVelocity = new Vector2(9,5);
     public int jumpSpeed = 600;
-    public int mainGunPower = 250;
-    public int specialGunPower = 100;
+    
     public int specialGunAmmo = 4;
     private int currentState = (int) PlayerState.Idle;
     public int health = 100;
-    public float gapGun = 0.7f;
+    
     private bool isOnGround = false;
     private bool isFacingForward = true;
     private bool isLadder;
     private bool isClimbing;
     
-    public Animator animationComponent;
-    public Rigidbody2D rigidComponent;
+    private Animator animationComponent;
+    private Rigidbody2D rigidComponent;
     public GameObject mainBullet;
     public GameObject specialBullet;
 
     private float vertical;
-    private float speed = 8f;
+    private float speed = 5f;
     
 
     private float defaultGravityScale ;
@@ -45,16 +44,11 @@ public class PlayerController : MonoBehaviour
         animationComponent = GetComponent<Animator>();
         originalMoveSpeed = moveSpeed;
         defaultGravityScale =  rigidComponent.gravityScale;
-        //colliderSize = GetComponent<CapsuleCollider2D>().size;
-        
     }
 
     // Update is called once per frame
-    void Update()
-    {
-      //animationComponent.SetInteger("CurrentState",currentState);
+    void Update(){
       animationComponent.SetFloat ("Speed", Mathf.Abs(rigidComponent.velocity.x));
-      //animationComponent.SetBool ("touchingGround", isOnGround);
       Debug.Log(((PlayerState)currentState).ToString() + " ; " + isOnGround + ";" + rigidComponent.velocity.x + "u/s" ); 
       vertical = Input.GetAxisRaw("Vertical");
     }
@@ -121,17 +115,22 @@ public class PlayerController : MonoBehaviour
         rotation = Quaternion.Euler(new Vector3(0,180,0));
         gapDir = Vector2.left;
       }
-      Vector2 position = transform.position;
-      position += gapDir * gapGun * Time.deltaTime ;
-      GameObject bulletIntance  = Instantiate(mainBullet, position, rotation);
+      Transform gunPoint = gameObject.transform.GetChild(1);
+      GameObject bulletIntance  = Instantiate(mainBullet, gunPoint.position, rotation);
       Bullet b = bulletIntance.GetComponent<Bullet>();
       b.whiteList = gameObject;
       currentState  = (int) PlayerState.Idle;
     }
 
     public void ShootSpecialGun(){
+      if(specialGunAmmo <= 0){
+        return;
+      }
+      specialGunAmmo--;
       currentState  = (int) PlayerState.Shoot;
-      Vector2 v = transform.position;
+      
+      Transform gunPoint = gameObject.transform.GetChild(1);
+      Vector2 v = gunPoint.position;
       int burst = 5;
       Quaternion rotation = Quaternion.Euler(new Vector3(0,0,0));
       Vector2 gapDir = Vector2.right;
@@ -139,6 +138,7 @@ public class PlayerController : MonoBehaviour
         rotation = Quaternion.Euler(new Vector3(0,180,0));
         gapDir = Vector2.left;
       }
+      float gapGun = 0.7f;
       for (int i = 0; i < burst; i++){
         Vector2 margin = Vector2.up;
         if(i > burst/2){
@@ -152,26 +152,31 @@ public class PlayerController : MonoBehaviour
     }
 
     private void OnTriggerEnter2D(Collider2D other) {
-      if(other.CompareTag("Object")) {
+      if(other.CompareTag("Object")){
         currentState = (int) PlayerState.Idle;
         isOnGround = true;
       }
       if(other.CompareTag("Bullet")) {
-        currentState = (int) PlayerState.Dead;
-        //TO DO:
+        Bullet[] hitBullets = other.GetComponents<Bullet>();
+        foreach (var b in hitBullets){
+          health -= b.damage;    
+        }
+        if(health <= 0){
+          currentState = (int) PlayerState.Dead;
+        }
       }
       if (other.CompareTag("Ladder")){
           isLadder = true;
       }
-
     }
 
-     private void OnTriggerExit2D(Collider2D collision)
+    private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.CompareTag("Ladder"))
         {
             isLadder = false;
             isClimbing = false;
+            rigidComponent.gravityScale = defaultGravityScale;
         }
     }
 

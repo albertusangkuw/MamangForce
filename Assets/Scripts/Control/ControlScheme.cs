@@ -12,21 +12,25 @@ public class ControlScheme : MonoBehaviour
 
     public KeyCode specialGun = KeyCode.Z;
 
-    public PlayerController player;
+    private PlayerController player;
     
+    public float fireRate = 0.15F;
+    private float nextFire = 0.0F;
     // Start is called before the first frame update
     void Start()
     {
-        
+      player = GetComponent<PlayerController>();
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-      if(Input.GetKeyDown(KeyCode.X)){
+      if(Input.GetKey(KeyCode.X) && Time.time > nextFire){
+        nextFire = Time.time + fireRate;
         player.ShootMainGun();
       }
-      if(Input.GetKeyDown(KeyCode.Z)){
+      if(Input.GetKeyDown(KeyCode.Z) && Time.time > nextFire){
+        nextFire = Time.time + fireRate;
         player.ShootSpecialGun();
       }
 

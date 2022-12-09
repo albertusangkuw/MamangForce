@@ -7,6 +7,7 @@ public class Bullet : MonoBehaviour
     public int moveSpeed = 25;
     public Vector2 direction = Vector2.right;
 
+    public int damage = 100;
     public float range = 12;
     public GameObject whiteList;
     protected Vector2 initialDirection;
@@ -32,9 +33,9 @@ public class Bullet : MonoBehaviour
       if(other.gameObject.CompareTag("Ladder")){
          return;
       }
-      if(other.gameObject.CompareTag("Object")){
-        Destroy(other.gameObject);
-      }
+      // if(other.gameObject.CompareTag("Object")){
+      //   Destroy(other.gameObject);
+      // }
       Destroy(gameObject);
     }
 }
