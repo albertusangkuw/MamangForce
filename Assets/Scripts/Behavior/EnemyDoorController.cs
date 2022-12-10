@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemyDoorController : MonoBehaviour
 {
 
-    int hit = 0;
+    int currHit = 0;
     public List<GameObject> enemies = new List<GameObject>();
     public List<GameObject> enemiesToSpawn = new List<GameObject>();
     // Start is called before the first frame update
@@ -28,7 +28,7 @@ public class EnemyDoorController : MonoBehaviour
         // }
 
         currHit += 1;
-        Debug.Log("Masuk currHit" + currHit);
+        //Debug.Log("Masuk currHit" + currHit);
         if (other.gameObject.CompareTag("Bullet"))
         {
 
@@ -62,26 +62,4 @@ public class EnemyDoorController : MonoBehaviour
         // enemiesToSpawn = generatedEnemies;
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        hit += 1;
-        if (other.gameObject.CompareTag("Bullet") && hit! > 2)
-        {
-            GeneratedEnemies(other);
-        }
-    }
-     public void GeneratedEnemies(Collider2D other)
-    {
-        List<GameObject> generatedEnemies = new List<GameObject>();
-        int randEnemyId = Random.Range(0, enemies.Count);
-
-        Vector2 position = transform.position;
-        Quaternion rotation = Quaternion.Euler(new Vector3(0, 0, 0));
-        GameObject bulletIntance = Instantiate(enemies[randEnemyId], position, rotation);
-
-        // generatedEnemies.Add(enemies[randEnemyId].enemyPrefab);
-
-        enemiesToSpawn.Clear();
-        enemiesToSpawn = generatedEnemies;
-    }
 }
