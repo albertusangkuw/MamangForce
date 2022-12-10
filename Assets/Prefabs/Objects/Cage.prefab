@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 18077278975641704}
   - component: {fileID: 6444013385468855592}
+  - component: {fileID: 5374962084856578801}
   m_Layer: 0
   m_Name: Cage
   m_TagString: Untagged
@@ -25,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 18077278975641707}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.97, y: 5.08, z: -1}
+  m_LocalPosition: {x: 6.11, y: 5.08, z: -1}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -47,7 +48,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -2.764044, y: -1.1056174}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -58,8 +59,24 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 2.4502244, y: 1.976389}
   m_EdgeRadius: 0
+--- !u!114 &5374962084856578801
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 18077278975641707}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6bc1c79fe7732ec88cbe07ea35dbeda, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player:
+  - {fileID: 3999557743170488863, guid: 04ddb199334f34636892c4436599cca2, type: 3}
+  - {fileID: 2182801821542340688, guid: 15f27ec71764543ce840a2fbe7af63b8, type: 3}
+  playerToSpawn: []
 --- !u!1001 &18077276853180953
 PrefabInstance:
   m_ObjectHideFlags: 0

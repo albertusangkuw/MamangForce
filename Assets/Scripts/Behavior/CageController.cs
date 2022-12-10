@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class CageController : MonoBehaviour
 {
-    int hit = 0;
-    public List<GameObject> enemies = new List<GameObject>();
-    public List<GameObject> enemiesToSpawn = new List<GameObject>();
+    int currHit = 0;
+    int maxHitDestroyCage = 10;
+    public List<GameObject> player = new List<GameObject>();
+    public List<GameObject> playerToSpawn;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,43 +19,39 @@ public class CageController : MonoBehaviour
     {
 
     }
-
-
     private void OnTriggerEnter2D(Collider2D other)
     {
-        // hit += 1;
-        // if (other.gameObject.CompareTag("Bullet") && hit > 2)
+        // currHit += 1;
+        // if (other.gameObject.CompareTag("Bullet") && currHit > 2)
         // {
         //     Destroy(gameObject);
         // }
 
-        hit += 1;
-        Debug.Log("Masuk hit" + hit);
-        if (other.gameObject.CompareTag("Bullet") && hit! > 2)
+        currHit += 1;
+        Debug.Log("Masuk currHit" + currHit);
+        if (other.gameObject.CompareTag("Bullet") && currHit >= 10)
         {
-            GeneratedEnemies(other);
+            Destroy(gameObject);
+            GeneratedPlayer(other);
         }
     }
 
-    // [System.Serializable]
-    // public class Enemy
-    // {
-    //     public GameObject enemyPrefab;
-    // }
-
-    public void GeneratedEnemies(Collider2D other)
+    public void GeneratedPlayer(Collider2D other)
     {
-        List<GameObject> generatedEnemies = new List<GameObject>();
-        int randEnemyId = Random.Range(0, enemies.Count);
+        playerToSpawn.Clear();
+        playerToSpawn = new List<GameObject>();
+        int randPlayerId = Random.Range(0, player.Count);
 
-        Debug.Log("Masuk peluru : " + hit);
+        // Debug.Log("Masuk peluru : " + currHit);
+        // Debug.Log("Posisi pintu :" + GameObject.FindGameObjectWithTag("EnemyDoor").transform.position);
         Vector2 position = transform.position;
         Quaternion rotation = Quaternion.Euler(new Vector3(0, 0, 0));
-        GameObject bulletIntance = Instantiate(enemies[randEnemyId], position, rotation);
+        GameObject bulletIntance = Instantiate(player[randPlayerId], position, rotation);
 
         // generatedEnemies.Add(enemies[randEnemyId].enemyPrefab);
 
-        enemiesToSpawn.Clear();
-        enemiesToSpawn = generatedEnemies;
+        // enemiesToSpawn.Clear();
+        // enemiesToSpawn = generatedEnemies;
     }
+
 }
