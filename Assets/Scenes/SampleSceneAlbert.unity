@@ -3583,7 +3583,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lastCheckPoint: {x: 0, y: 0}
-  playerPrefab: {fileID: 7771808343834569380, guid: 896d216aa0b420d1bbbb5d32f8d2e6c5,
+  playerPrefab: {fileID: 3999557743170488863, guid: 04ddb199334f34636892c4436599cca2,
     type: 3}
   livesPlayer: 1
   isGameFinished: 0
@@ -3603,6 +3603,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Size.y
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 709202128286691743, guid: 38e46be83a2154771a46e493706d424a,
+        type: 3}
+      propertyPath: m_SpriteTilingProperty.newSize.x
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 1182447646787049666, guid: 38e46be83a2154771a46e493706d424a,
         type: 3}
@@ -3668,6 +3673,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_TagString
       value: Object
+      objectReference: {fileID: 0}
+    - target: {fileID: 5587093250133114318, guid: 38e46be83a2154771a46e493706d424a,
+        type: 3}
+      propertyPath: m_SpriteTilingProperty.newSize.x
+      value: 40
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 38e46be83a2154771a46e493706d424a, type: 3}
@@ -5482,6 +5492,11 @@ PrefabInstance:
       propertyPath: m_Size.y
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 709202128286691743, guid: 38e46be83a2154771a46e493706d424a,
+        type: 3}
+      propertyPath: m_SpriteTilingProperty.newSize.x
+      value: 200
+      objectReference: {fileID: 0}
     - target: {fileID: 1182447646787049666, guid: 38e46be83a2154771a46e493706d424a,
         type: 3}
       propertyPath: m_RootOrder
@@ -5550,7 +5565,7 @@ PrefabInstance:
     - target: {fileID: 5587093250133114318, guid: 38e46be83a2154771a46e493706d424a,
         type: 3}
       propertyPath: m_SpriteTilingProperty.newSize.x
-      value: 40
+      value: 200
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 38e46be83a2154771a46e493706d424a, type: 3}
