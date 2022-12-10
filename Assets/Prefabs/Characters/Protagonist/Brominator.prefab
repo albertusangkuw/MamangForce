@@ -48,7 +48,7 @@ GameObject:
   - component: {fileID: 2182801821542340691}
   - component: {fileID: 2182801821542340690}
   m_Layer: 0
-  m_Name: Scout
+  m_Name: Brominator
   m_TagString: AttackingTeam
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

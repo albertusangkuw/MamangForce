@@ -29,7 +29,7 @@ public class ControlScheme : MonoBehaviour
         nextFire = Time.time + fireRate;
         player.ShootMainGun();
       }
-      if(Input.GetKeyDown(KeyCode.Z) && Time.time > nextFire){
+      if(Input.GetKey(KeyCode.Z) && Time.time > nextFire){
         nextFire = Time.time + fireRate;
         player.ShootSpecialGun();
       }

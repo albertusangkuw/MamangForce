@@ -41,12 +41,13 @@ public class GamePlay : MonoBehaviour
     void Update(){
         if(currPlayer.GetComponent<PlayerController>().GetCurrentState().Equals(PlayerState.Dead)){
            livesPlayer--; 
-           if(livesPlayer == 0){
-                Debug.Log("Game Over");
-                // Game Over;
+           Destroy(currPlayer);
+           if(livesPlayer > 0){
+            // Transform Player to last position and facing forward
+            respawn(lastCheckPoint,Quaternion.Euler(new Vector3(0,0,0)));
            }else{
-                // Transform Player to last position and facing forward
-                respawn(lastCheckPoint,Quaternion.Euler(new Vector3(0,0,0)));
+             // Game Over;
+             Debug.Log("Game Over");
            }
         }
         Debug.Log("Boss E:" + killedBoss +

@@ -164,10 +164,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45e186bc433b98d4a83e719398e666db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 25
+  moveSpeed: 100
   direction: {x: 1, y: 0}
+  damage: 100
   range: 12
   whiteList: {fileID: 0}
+  timeBeforeExplode: 0
   durationExplosion: 0.025
   radiusExplosion: 0.3
 --- !u!96 &1198908761512565558

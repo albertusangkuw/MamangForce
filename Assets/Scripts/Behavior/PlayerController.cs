@@ -17,7 +17,7 @@ public enum PlayerState {
 }
 public class PlayerController : MonoBehaviour
 {
-    public PlayerType type = PlayerType.Playable;
+    public PlayerType type = PlayerType.Prisoner;
     public GameObject mainBullet;
     public GameObject specialBullet;
     public float moveSpeed = 30;
@@ -113,15 +113,16 @@ public class PlayerController : MonoBehaviour
       currentState  = (int) PlayerState.Shoot;
       
       Quaternion rotation = Quaternion.Euler(new Vector3(0,0,0));
-      Vector2 gapDir = Vector2.right;
+      Vector2 vDirection = Vector2.right;
       if(!isFacingForward){
         rotation = Quaternion.Euler(new Vector3(0,180,0));
-        gapDir = Vector2.left;
+        vDirection = Vector2.left;
       }
       Transform gunPoint = gameObject.transform.GetChild(1);
       GameObject bulletIntance = Instantiate(mainBullet, gunPoint.position, rotation);
       Bullet b = bulletIntance.GetComponent<Bullet>();
       b.whiteList = gameObject;
+      b.direction = vDirection;
       currentState  = (int) PlayerState.Idle;
     }
 
@@ -133,18 +134,19 @@ public class PlayerController : MonoBehaviour
       currentState  = (int) PlayerState.Shoot;
       
       Transform gunPoint = gameObject.transform.GetChild(1);
-      Vector2 v = gunPoint.position;
-      Quaternion rotation = Quaternion.Euler(new Vector3(0,0,0));
+
+      Vector3 degreeRotation = new Vector3(0,0,0);
+      Vector2 vDirection = Vector2.right;
       if(!isFacingForward){
-        rotation = Quaternion.Euler(new Vector3(0,180,0));
+        degreeRotation = new Vector3(0,180,0);
+        vDirection = Vector2.left;
       }
-      Vector2 margin = Vector2.up;
       for (int i = 0; i < specialGunBurst; i++){
-        if(i > specialGunBurst/2){
-          margin = Vector2.down;
-        }
-        v += margin * (i+1)/10;
-        Instantiate(specialBullet, v, rotation);
+          Quaternion rotation =  Quaternion.Euler(degreeRotation.x, degreeRotation.y, Random.Range(-4f,4f));
+          GameObject bulletIntance = Instantiate(specialBullet, gunPoint.position, rotation);
+          Bullet b = bulletIntance.GetComponent<Bullet>();
+          b.whiteList = gameObject;
+          b.direction = vDirection;
       }
       currentState  = (int) PlayerState.Idle;
     }
@@ -157,10 +159,13 @@ public class PlayerController : MonoBehaviour
       if(other.CompareTag("Bullet")) {
         Bullet[] hitBullets = other.GetComponents<Bullet>();
         foreach (var b in hitBullets){
-          health -= b.damage;    
+          if(!b.whiteList.Equals(gameObject)){
+            health -= b.damage;    
+          }
         }
         if(health <= 0){
           currentState = (int) PlayerState.Dead;
+          
         }
       }
       if (other.CompareTag("Ladder")){
