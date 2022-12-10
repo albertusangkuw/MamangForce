@@ -1,55 +1,93 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using Cinemachine;
 public class GamePlay : MonoBehaviour
 {
+    //Ref Point for other script
+    public static GamePlay Instance { get; private set; }
+    // Shared Variabel
     public Vector2 lastCheckPoint;
     public GameObject playerPrefab;
-    public static int livesPlayer = 1;
-    public Vector2 startLocation;
-    private PlayerController[] bossEnemy;
-    private PlayerController[] regularEnemy;
-    private PlayerController[] prisoner;
+    public int livesPlayer = 1;
+    public bool isGameFinished = false;
 
+    private CinemachineVirtualCamera vCam;
+    private List<PlayerController> bossEnemyInst;
+    
+    private GameObject currPlayer;
+    private int killedBoss;
+    private int killedSoldier;
+    private int relasedPrisoner;
 
+    // Always use empty Instance
+   private void Awake(){
+        
+        if(Instance != null && Instance != this){ 
+            Destroy(this); 
+        } 
+        else{ 
+            Instance = this; 
+        } 
+    }
     // Start is called before the first frame update
     void Start()
     {
-        //GameObject[] FindGameObjectsWithTag(
-        // Load All Object
+        vCam =  gameObject.GetComponent<CinemachineVirtualCamera>();
+        respawn(lastCheckPoint,Quaternion.Euler(new Vector3(0,0,0)));
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        PlayerController currPlayer  = playerPrefab.GetComponent<PlayerController>();
-        if(currPlayer.GetCurrentState().Equals(PlayerState.Dead)){
-            livesPlayer--; 
+    void Update(){
+        if(currPlayer.GetComponent<PlayerController>().GetCurrentState().Equals(PlayerState.Dead)){
+           livesPlayer--; 
            if(livesPlayer == 0){
-            Debug.Log("Game Over");
+                Debug.Log("Game Over");
                 // Game Over;
            }else{
-
-                // Transform Player to last position
+                // Transform Player to last position and facing forward
+                respawn(lastCheckPoint,Quaternion.Euler(new Vector3(0,0,0)));
            }
         }
-        Debug.Log("Boss E:" + countDeadPlayer(bossEnemy) +
-                    ", Reg E:" + countDeadPlayer(regularEnemy) +  
-                    ", Prisoner:" + countDeadPlayer(prisoner));
+        Debug.Log("Boss E:" + killedBoss +
+                    ", Reg E:" + killedSoldier +  
+                    ", Prisoner:" + relasedPrisoner);
+
     }
 
-    private int countDeadPlayer(PlayerController[] players){
-        int counter = 0;
-        foreach (var p in players){
-            if(p.GetCurrentState().Equals(PlayerState.Dead)){
-                counter++;
-            }
+    void LateUpdate(){
+        if(isGameFinished){
+            //
+            Debug.Log("Game is finish !!@");
         }
-        return counter;
     }
+
+    private void respawn(Vector2 position, Quaternion rotation){
+      var newPlayer = Instantiate(playerPrefab,position,rotation);
+      vCam.m_Follow = newPlayer.transform;
+      currPlayer = newPlayer;
+    }
+  
+    public void UpdatePlayerState(PlayerController player){
+        if(player.type.Equals(PlayerType.Boss)){
+            killedBoss++;
+        }
+        if(player.type.Equals(PlayerType.Prisoner)){
+            relasedPrisoner++;    
+        }
+        if(player.type.Equals(PlayerType.Soldier)){
+            killedSoldier++;
+        }
+    }  
 
     void SummarySum(){
+        //myCinemachine = GetComponent<CinemachineVirtualCamera>();
         //Tampilkan dan hitung score
+    }
+    void OnDestory(){
+        //Clean Gameplay Instance
+        if(Instance == this){
+            Instance = null;
+        }
     }
 }

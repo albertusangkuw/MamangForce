@@ -2,6 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum PlayerType{
+  Playable,
+  Prisoner,
+  Soldier,
+  Boss,
+}
 public enum PlayerState {
   Idle,
   Walk,
@@ -11,32 +17,29 @@ public enum PlayerState {
 }
 public class PlayerController : MonoBehaviour
 {
-    public int moveSpeed = 30;
-
+    public PlayerType type = PlayerType.Playable;
+    public GameObject mainBullet;
+    public GameObject specialBullet;
+    public float moveSpeed = 30;
+    public float jumpSpeed = 600;
     public Vector2 maxVelocity = new Vector2(9,5);
-    public int jumpSpeed = 600;
     
-    public int specialGunAmmo = 4;
-    private int currentState = (int) PlayerState.Idle;
-    public int health = 100;
+    public float specialGunAmmo = 4;
+    public float specialGunBurst = 4;
+    public float health = 100;
     
     private bool isOnGround = false;
     private bool isFacingForward = true;
     private bool isLadder;
     private bool isClimbing;
-    
+    private int currentState = (int) PlayerState.Idle;
     private Animator animationComponent;
     private Rigidbody2D rigidComponent;
-    public GameObject mainBullet;
-    public GameObject specialBullet;
-
     private float vertical;
     private float speed = 5f;
-    
+    private float defaultGravityScale;
+    private float originalMoveSpeed;
 
-    private float defaultGravityScale ;
-
-    private int originalMoveSpeed ;
     // Start is called before the first frame update
     void Start()
     {
@@ -116,14 +119,14 @@ public class PlayerController : MonoBehaviour
         gapDir = Vector2.left;
       }
       Transform gunPoint = gameObject.transform.GetChild(1);
-      GameObject bulletIntance  = Instantiate(mainBullet, gunPoint.position, rotation);
+      GameObject bulletIntance = Instantiate(mainBullet, gunPoint.position, rotation);
       Bullet b = bulletIntance.GetComponent<Bullet>();
       b.whiteList = gameObject;
       currentState  = (int) PlayerState.Idle;
     }
 
     public void ShootSpecialGun(){
-      if(specialGunAmmo <= 0){
+      if(specialGunAmmo <= 0 || specialGunBurst <= 0){
         return;
       }
       specialGunAmmo--;
@@ -131,24 +134,19 @@ public class PlayerController : MonoBehaviour
       
       Transform gunPoint = gameObject.transform.GetChild(1);
       Vector2 v = gunPoint.position;
-      int burst = 5;
       Quaternion rotation = Quaternion.Euler(new Vector3(0,0,0));
-      Vector2 gapDir = Vector2.right;
       if(!isFacingForward){
         rotation = Quaternion.Euler(new Vector3(0,180,0));
-        gapDir = Vector2.left;
       }
-      float gapGun = 0.7f;
-      for (int i = 0; i < burst; i++){
-        Vector2 margin = Vector2.up;
-        if(i > burst/2){
+      Vector2 margin = Vector2.up;
+      for (int i = 0; i < specialGunBurst; i++){
+        if(i > specialGunBurst/2){
           margin = Vector2.down;
         }
         v += margin * (i+1)/10;
-        v += gapDir * gapGun;
-        Instantiate(mainBullet, v, rotation);
-        currentState  = (int) PlayerState.Idle;
+        Instantiate(specialBullet, v, rotation);
       }
+      currentState  = (int) PlayerState.Idle;
     }
 
     private void OnTriggerEnter2D(Collider2D other) {
