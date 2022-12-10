@@ -164,8 +164,8 @@ public class PlayerController : MonoBehaviour
           }
         }
         if(health <= 0){
-          currentState = (int) PlayerState.Dead;
           
+          currentState = (int) PlayerState.Dead;
         }
       }
       if (other.CompareTag("Ladder")){
