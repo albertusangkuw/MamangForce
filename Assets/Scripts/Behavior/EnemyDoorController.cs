@@ -22,7 +22,6 @@ public class EnemyDoorController : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         hit += 1;
-        Debug.Log("Masuk hit" + hit);
         if (other.gameObject.CompareTag("Bullet") && hit! > 2)
         {
             GeneratedEnemies(other);
@@ -33,7 +32,6 @@ public class EnemyDoorController : MonoBehaviour
         List<GameObject> generatedEnemies = new List<GameObject>();
         int randEnemyId = Random.Range(0, enemies.Count);
 
-        Debug.Log("Masuk peluru : " + hit);
         Vector2 position = transform.position;
         Quaternion rotation = Quaternion.Euler(new Vector3(0, 0, 0));
         GameObject bulletIntance = Instantiate(enemies[randEnemyId], position, rotation);

@@ -164,10 +164,13 @@ public class PlayerController : MonoBehaviour
           }
         }
         if(health <= 0){
-          
           currentState = (int) PlayerState.Dead;
         }
       }
+      if(other.CompareTag("SpaceLimit")){
+        currentState = (int) PlayerState.Dead;
+      }
+
       if (other.CompareTag("Ladder")){
           isLadder = true;
       }

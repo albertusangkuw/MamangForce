@@ -2,13 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class OilBarrel : Explosion
+public class SpaceLimit : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()
     {
-        colliderRange = gameObject.GetComponent<CircleCollider2D>();
-        rigidComponent = gameObject.GetComponent<Rigidbody2D>();
+        
     }
 
     // Update is called once per frame
@@ -16,12 +15,12 @@ public class OilBarrel : Explosion
     {
         
     }
-
     private void OnTriggerEnter2D(Collider2D other) {
-      if(other.gameObject.CompareTag("Bullet")){
-        StartCoroutine(WaitBeforeExplode(timeBeforeExplode));
+      if(other.gameObject.CompareTag("Player")){
+        if(other.gameObject.GetComponent<PlayerController>().type == PlayerType.Playable){
+            return;
+        }
       }
+      Destroy(other.gameObject);
     }
-    
-
 }

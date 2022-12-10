@@ -10,6 +10,7 @@ TagManager:
   - Ladder
   - EnemyDoor
   - Feet
+  - SpaceLimit
   layers:
   - Default
   - TransparentFX
