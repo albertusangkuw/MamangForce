@@ -23,6 +23,7 @@ public class Bullet : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
       
       //transform.Translate(direction * Time.deltaTime * moveSpeed);
       if(Mathf.Abs(initialDirection.x)+range < Mathf.Abs(transform.position.x)){
@@ -41,5 +42,6 @@ public class Bullet : MonoBehaviour
          return;
       }
       Destroy(gameObject);
+
     }
 }
