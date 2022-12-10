@@ -4,14 +4,16 @@ using UnityEngine;
 
 public class Explosion : Bullet
 {
+
     protected CircleCollider2D  colliderRange;
+
     private bool isExploded = false;
 
     protected string targetTag = "Bullet";
     public float timeBeforeExplode = 0f;
     public float durationExplosion = 0.025f;
     public float radiusExplosion = 0.74f;
-    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -22,18 +24,23 @@ public class Explosion : Bullet
     }
 
     // Update is called once per frame
-    void Update(){
-      if(Mathf.Abs(initialDirection.x)+range < Mathf.Abs(transform.position.x)){
-          Explode();
-      }
+    void Update()
+    {
+        if (Mathf.Abs(initialDirection.x) + range < Mathf.Abs(transform.position.x))
+        {
+            Explode();
+        }
     }
 
+
     protected void Explode(){
+
         colliderRange.radius = radiusExplosion;
         rigidComponent.velocity = Vector2.zero;
-        isExploded =  true;
-        Destroy(gameObject,durationExplosion);
+        isExploded = true;
+        Destroy(gameObject, durationExplosion);
     }
+
     
     private void OnTriggerEnter2D(Collider2D other) {
       if(other.gameObject.Equals(whiteList)) {
@@ -46,6 +53,7 @@ public class Explosion : Bullet
     }
     
     protected IEnumerator WaitBeforeExplode(float time){
+
         yield return new WaitForSecondsRealtime(time);
         gameObject.tag = targetTag;
         Explode();

@@ -107,7 +107,7 @@ GameObject:
   - component: {fileID: -904522966106420014}
   m_Layer: 0
   m_Name: Enemy_Door
-  m_TagString: Untagged
+  m_TagString: EnemyDoor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -187,7 +187,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01ac0dd192a76e7219b9cbc25b15ee4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemies: []
+  enemies:
+  - {fileID: 4438422499678143598, guid: 583223a7da9104fd1b3ea4cef2cfc04b, type: 3}
+  - {fileID: 2148874613496519018, guid: 3fb0b5a4a8ea44bb8aa1a9784356d296, type: 3}
   enemiesToSpawn: []
 --- !u!1 &405621105048183099
 GameObject:
