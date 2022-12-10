@@ -5,12 +5,12 @@ TagManager:
   serializedVersion: 2
   tags:
   - AttackingTeam
-  - Feet
   - Bullet
-  - Ground
   - Object
   - Ladder
   - EnemyDoor
+  - Feet
+  - SpaceLimit
   layers:
   - Default
   - TransparentFX

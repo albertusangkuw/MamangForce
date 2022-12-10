@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 7812183762947697689}
   - component: {fileID: 7812183762947697690}
   - component: {fileID: -5615394537021313298}
+  - component: {fileID: 8118944556575733709}
+  - component: {fileID: 9032651189126536752}
   m_Layer: 0
   m_Name: Oil_Red
   m_TagString: Object
@@ -160,3 +162,39 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.84375, y: 1.09375}
   m_EdgeRadius: 0
+--- !u!58 &8118944556575733709
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7812183762947697694}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.039405346, y: 0.546875}
+  serializedVersion: 2
+  m_Radius: 0.3000729
+--- !u!114 &9032651189126536752
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7812183762947697694}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80287e39acb8e40c3b27ee9e3c5c1f29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 0
+  direction: {x: 0, y: 0}
+  damage: 100
+  range: 0
+  whiteList: {fileID: 0}
+  timeBeforeExplode: 0
+  durationExplosion: 0.025
+  radiusExplosion: 2
