@@ -179,26 +179,19 @@ public class PlayerController : MonoBehaviour
             currentState = (int)PlayerState.Idle;
             isOnGround = true;
         }
-        if (other.CompareTag("Bullet"))
-        {
-            Bullet[] hitBullets = other.GetComponents<Bullet>();
-            foreach (var b in hitBullets)
-            {
-                if (!b.whiteList.Equals(gameObject))
-                {
-                    health -= b.damage;
-                }
-            }
-            if (health <= 0)
-            {
-                currentState = (int)PlayerState.Dead;
 
-            }
+        if(health <= 0){
+          currentState = (int) PlayerState.Dead;
         }
-        if (other.CompareTag("Ladder"))
-        {
-            isLadder = true;
-        }
+      
+      if(other.CompareTag("SpaceLimit")){
+        currentState = (int) PlayerState.Dead;
+      }
+
+      if (other.CompareTag("Ladder")){
+          isLadder = true;
+      }
+
     }
 
     private void OnTriggerExit2D(Collider2D collision)

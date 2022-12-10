@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class EnemyDoorController : MonoBehaviour
 {
+
     int currHit = 0;
-    int maxHitDestroyCage = 10;
     public List<GameObject> enemies = new List<GameObject>();
     public List<GameObject> enemiesToSpawn = new List<GameObject>();
     // Start is called before the first frame update
@@ -28,7 +28,7 @@ public class EnemyDoorController : MonoBehaviour
         // }
 
         currHit += 1;
-        Debug.Log("Masuk currHit" + currHit);
+        //Debug.Log("Masuk currHit" + currHit);
         if (other.gameObject.CompareTag("Bullet"))
         {
 
@@ -61,4 +61,5 @@ public class EnemyDoorController : MonoBehaviour
         // enemiesToSpawn.Clear();
         // enemiesToSpawn = generatedEnemies;
     }
+
 }
