@@ -8,10 +8,10 @@ public class SceneChanger : MonoBehaviour
 
     public GameObject selectOption;
     // Start is called before the first frame update
-    // void Start()
-    // {
-
-    // }
+    void Start()
+    {
+        ChangeScene("Home");
+    }
 
     // // Update is called once per frame
     // void Update()
@@ -19,7 +19,7 @@ public class SceneChanger : MonoBehaviour
 
     // }
 
-    public void ChangeScene(string sceneName)
+    public static void ChangeScene(string sceneName)
     {
         SceneManager.LoadScene(sceneName);
     }
