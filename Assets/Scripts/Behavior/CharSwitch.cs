@@ -7,7 +7,7 @@ public class CharSwitch : MonoBehaviour
     public static GameObject Character;
     public static GameObject CharacterDef;
 
-    public GameObject[] characters = new GameObject[6];
+    public GameObject[] characters = new GameObject[3];
 
     public static int health;
     /*public static int healthD;
@@ -24,7 +24,7 @@ public class CharSwitch : MonoBehaviour
         respawnPoint = GameObject.Find("Player");
         Character = characters[currentPlayer];
 
-        for (int x = 0; x < 6; x++)
+        for (int x = 0; x < 3; x++)
         {
             if (Character != characters[x])
             {
@@ -39,11 +39,11 @@ public class CharSwitch : MonoBehaviour
     {
         Character.SetActive(true);
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.A))
         {
             characters[currentPlayer].SetActive(false);
             currentPlayer += 1;
-            if (currentPlayer == 6)
+            if (currentPlayer == 3)
             {
                 currentPlayer = 0;
             }
