@@ -41,7 +41,7 @@ public class GamePlay : MonoBehaviour
     void Update(){
         if(currPlayer.GetComponent<PlayerController>().GetCurrentState().Equals(PlayerState.Dead)){
            livesPlayer--; 
-           Destroy(currPlayer);
+           Destroy(currPlayer,3);
            if(livesPlayer > 0){
             // Transform Player to last position and facing forward
             respawn(lastCheckPoint,Quaternion.Euler(new Vector3(0,0,0)));
@@ -62,7 +62,7 @@ public class GamePlay : MonoBehaviour
             Debug.Log("Game is finish !!@");
         }
     }
-
+    
     private void respawn(Vector2 position, Quaternion rotation){
       var newPlayer = Instantiate(playerPrefab,position,rotation);
       vCam.m_Follow = newPlayer.transform;
@@ -75,6 +75,7 @@ public class GamePlay : MonoBehaviour
         }
         if(player.type.Equals(PlayerType.Prisoner)){
             relasedPrisoner++;    
+            livesPlayer++;
         }
         if(player.type.Equals(PlayerType.Soldier)){
             killedSoldier++;
