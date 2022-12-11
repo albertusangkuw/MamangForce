@@ -222,10 +222,10 @@ GameObject:
   - component: {fileID: 7691794378341094577}
   - component: {fileID: 7691794378341094576}
   - component: {fileID: 7691794378341094583}
-  - component: {fileID: 3213262506134820778}
+  - component: {fileID: 2091082615040030302}
   m_Layer: 20
   m_Name: FinishPoint
-  m_TagString: Untagged
+  m_TagString: PlayerPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -287,7 +287,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_Sprite: {fileID: 21300042, guid: 29c9cded5e558164aaf8c9bf08aa1510, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -325,7 +325,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.7516298, y: 1.5875252}
   m_EdgeRadius: 0
---- !u!114 &3213262506134820778
+--- !u!114 &2091082615040030302
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -334,7 +334,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7691794378341094578}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b11e4efc5bfaebde2a5322cdf0b51690, type: 3}
+  m_Script: {fileID: 11500000, guid: 343adfc0cae5244a7aa3f2f92fd7550e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   type: 1

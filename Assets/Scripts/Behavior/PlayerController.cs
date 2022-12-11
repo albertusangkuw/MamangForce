@@ -34,6 +34,7 @@ public class PlayerController : MonoBehaviour
     private bool isFacingForward = true;
     public bool isLadder;
     private bool isClimbing;
+    private bool isDead = false;
     private int currentState = (int)PlayerState.Idle;
     private Animator animationComponent;
     private Rigidbody2D rigidComponent;
@@ -56,19 +57,6 @@ public class PlayerController : MonoBehaviour
     {
         animationComponent.SetFloat("Speed", Mathf.Abs(rigidComponent.velocity.x));
         Debug.Log(((PlayerState)currentState).ToString() + " ; " + isOnGround + ";" + rigidComponent.velocity.x + "u/s");
-    }
-
-    private void FixedUpdate()
-    {
-        // if (isClimbing)
-        // {
-            // rigidComponent.gravityScale = 0f;
-            // rigidComponent.velocity = new Vector2(rigidComponent.velocity.x, vertical * speed);
-        // }
-        // else
-        // {
-        //     rigidComponent.gravityScale = defaultGravityScale;
-        // }
     }
 
     public void Forward()
@@ -181,33 +169,52 @@ public class PlayerController : MonoBehaviour
             isOnGround = true;
         }
 
-        if(health <= 0){
-          currentState = (int) PlayerState.Dead;
+        if (other.CompareTag("Bullet")){
+            var b = other.GetComponent<Bullet>();
+            if(b.whiteList != gameObject){
+                health-=b.damage;
+            }
         }
-      
         if(other.CompareTag("SpaceLimit")){
-            currentState = (int) PlayerState.Dead;
+            health-=health;
         }
-
-      if (other.CompareTag("Ladder")){
-          isLadder = true;
-          Debug.Log("Ladder is True");
-      }
-
+        if(health <= 0 && isDead == false){
+            Dead();
+        }
+        if (other.CompareTag("Ladder")){
+            isLadder = true;
+            Debug.Log("Ladder is True");
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.CompareTag("Ladder"))
-        {
+        if(collision.CompareTag("Ladder")){
             isLadder = false;
             rigidComponent.gravityScale = defaultGravityScale;
             Debug.Log("Ladder is False");
         }
+        if(collision.CompareTag("Player")){
+         
+        }
     }
 
+    private void Dead(){
+        currentState = (int) PlayerState.Dead;
+        if(isDead){
+            return;
+        }
+        isDead = true;
+        transform.Rotate(transform.eulerAngles.x, transform.eulerAngles.y, 90, Space.Self);
+        GamePlay.Instance.UpdatePlayerState(this);
+    }
+
+    private void SavedPrisoner(){
+        GamePlay.Instance.UpdatePlayerState(this);
+    }
     public PlayerState GetCurrentState()
     {
+    
         return (PlayerState)currentState;
     }
 }

@@ -94,7 +94,7 @@ Transform:
   m_GameObject: {fileID: 2699031455274659542}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 2.705, y: 0.3214, z: -1}
-  m_LocalScale: {x: 9, y: 10, z: 1.5}
+  m_LocalScale: {x: 7, y: 7, z: 1.5}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2699031454424874147}
@@ -270,6 +270,7 @@ MonoBehaviour:
   specialGunAmmo: 4
   specialGunBurst: 4
   health: 100
+  isLadder: 0
 --- !u!114 &9162629175785481550
 MonoBehaviour:
   m_ObjectHideFlags: 0

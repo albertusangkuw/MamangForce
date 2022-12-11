@@ -6,7 +6,7 @@ public enum CheckPointType{
     Normal,
     Final
 }
-public class CheckPoint : MonoBehaviour
+public class PlayerPoint : MonoBehaviour
 {
     public CheckPointType type = CheckPointType.Normal;
     private bool isAlreadyPassed = false;
