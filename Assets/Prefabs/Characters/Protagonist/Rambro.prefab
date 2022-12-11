@@ -156,6 +156,7 @@ MonoBehaviour:
   specialGunAmmo: 10
   specialGunBurst: 1
   health: 100
+  isLadder: 0
 --- !u!114 &914847517703417816
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -174,6 +175,7 @@ MonoBehaviour:
   mainGun: 120
   specialGun: 122
   fireRate: 0.15
+  climbRate: 0.15
 --- !u!61 &7771808343834569390
 BoxCollider2D:
   m_ObjectHideFlags: 0
