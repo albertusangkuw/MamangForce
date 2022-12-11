@@ -32,12 +32,12 @@ public class PlayerController : MonoBehaviour
 
     private bool isOnGround = false;
     private bool isFacingForward = true;
-    private bool isLadder;
+    public bool isLadder;
     private bool isClimbing;
     private int currentState = (int)PlayerState.Idle;
     private Animator animationComponent;
     private Rigidbody2D rigidComponent;
-    private float vertical;
+    
     private float speed = 5f;
     private float defaultGravityScale;
     private float originalMoveSpeed;
@@ -56,20 +56,19 @@ public class PlayerController : MonoBehaviour
     {
         animationComponent.SetFloat("Speed", Mathf.Abs(rigidComponent.velocity.x));
         Debug.Log(((PlayerState)currentState).ToString() + " ; " + isOnGround + ";" + rigidComponent.velocity.x + "u/s");
-        vertical = Input.GetAxisRaw("Vertical");
     }
 
     private void FixedUpdate()
     {
-        if (isClimbing)
-        {
-            rigidComponent.gravityScale = 0f;
-            rigidComponent.velocity = new Vector2(rigidComponent.velocity.x, vertical * speed);
-        }
-        else
-        {
-            rigidComponent.gravityScale = defaultGravityScale;
-        }
+        // if (isClimbing)
+        // {
+            // rigidComponent.gravityScale = 0f;
+            // rigidComponent.velocity = new Vector2(rigidComponent.velocity.x, vertical * speed);
+        // }
+        // else
+        // {
+        //     rigidComponent.gravityScale = defaultGravityScale;
+        // }
     }
 
     public void Forward()
@@ -114,9 +113,11 @@ public class PlayerController : MonoBehaviour
 
     public void Climb(float verticalAxisRaw)
     {
-        if (isLadder && Mathf.Abs(verticalAxisRaw) > 0f)
-        {
-            isClimbing = true;
+        float speed = 40f;
+        if (isLadder){
+            rigidComponent.velocity = new Vector2(0,0);
+            rigidComponent.gravityScale = 0f;
+            transform.Translate(Vector2.up*verticalAxisRaw*speed*Time.deltaTime);
         }
     }
 
@@ -184,12 +185,13 @@ public class PlayerController : MonoBehaviour
           currentState = (int) PlayerState.Dead;
         }
       
-      if(other.CompareTag("SpaceLimit")){
-        currentState = (int) PlayerState.Dead;
-      }
+        if(other.CompareTag("SpaceLimit")){
+            currentState = (int) PlayerState.Dead;
+        }
 
       if (other.CompareTag("Ladder")){
           isLadder = true;
+          Debug.Log("Ladder is True");
       }
 
     }
@@ -199,8 +201,8 @@ public class PlayerController : MonoBehaviour
         if (collision.CompareTag("Ladder"))
         {
             isLadder = false;
-            isClimbing = false;
             rigidComponent.gravityScale = defaultGravityScale;
+            Debug.Log("Ladder is False");
         }
     }
 
