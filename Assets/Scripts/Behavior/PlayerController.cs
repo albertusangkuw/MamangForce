@@ -30,18 +30,18 @@ public class PlayerController : MonoBehaviour
     public float specialGunBurst = 4;
     public float health = 100;
 
-    private bool isOnGround = false;
-    private bool isFacingForward = true;
-    public bool isLadder;
-    private bool isClimbing;
-    private bool isDead = false;
-    private int currentState = (int)PlayerState.Idle;
-    private Animator animationComponent;
-    private Rigidbody2D rigidComponent;
+    protected bool isOnGround = false;
+    protected bool isFacingForward = true;
+    protected bool isLadder;
+    protected bool isClimbing;
+    protected bool isDead = false;
+    protected int currentState = (int)PlayerState.Idle;
+    protected Animator animationComponent;
+    protected Rigidbody2D rigidComponent;
     
-    private float speed = 5f;
-    private float defaultGravityScale;
-    private float originalMoveSpeed;
+    protected float speed = 5f;
+    protected float defaultGravityScale;
+    protected float originalMoveSpeed;
 
     // Start is called before the first frame update
     void Start()
@@ -59,6 +59,17 @@ public class PlayerController : MonoBehaviour
         Debug.Log(((PlayerState)currentState).ToString() + " ; " + isOnGround + ";" + rigidComponent.velocity.x + "u/s");
     }
 
+    void LateUpdate(){
+        if(health <= 0){
+            currentState = (int) PlayerState.Dead;
+            if(isDead){
+                return;
+            }
+            transform.Rotate(transform.eulerAngles.x, transform.eulerAngles.y, 90, Space.Self);
+            isDead = true;
+            Destroy(gameObject,5);
+        }
+    }
     public void Forward()
     {
         if (Mathf.Abs(rigidComponent.velocity.x) > maxVelocity.x)
@@ -161,60 +172,45 @@ public class PlayerController : MonoBehaviour
         currentState = (int)PlayerState.Idle;
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.CompareTag("Object"))
-        {
+    private void OnTriggerEnter2D(Collider2D other){
+        // Check Ground
+        if(other.CompareTag("Object")){
             currentState = (int)PlayerState.Idle;
             isOnGround = true;
         }
-
-        if (other.CompareTag("Bullet")){
+        // Check Bullet Hit
+        if(other.CompareTag("Bullet")){
             var b = other.GetComponent<Bullet>();
             if(b.whiteList != gameObject){
                 health-=b.damage;
             }
         }
+        // Check if Out of Space Limit
         if(other.CompareTag("SpaceLimit")){
-            health-=health;
+            health=0;
         }
-        if(health <= 0 && isDead == false){
-            Dead();
-        }
+
+        // Check Ladder
         if (other.CompareTag("Ladder")){
             isLadder = true;
             Debug.Log("Ladder is True");
-        }
+        }    
     }
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
+    private void OnTriggerExit2D(Collider2D collision){
         if(collision.CompareTag("Ladder")){
             isLadder = false;
             rigidComponent.gravityScale = defaultGravityScale;
             Debug.Log("Ladder is False");
         }
-        if(collision.CompareTag("Player")){
-         
-        }
     }
-
-    private void Dead(){
-        currentState = (int) PlayerState.Dead;
-        if(isDead){
-            return;
-        }
-        isDead = true;
-        transform.Rotate(transform.eulerAngles.x, transform.eulerAngles.y, 90, Space.Self);
-        GamePlay.Instance.UpdatePlayerState(this);
-    }
-
-    private void SavedPrisoner(){
-        GamePlay.Instance.UpdatePlayerState(this);
-    }
-    public PlayerState GetCurrentState()
-    {
     
+    
+    public PlayerState GetCurrentState(){
         return (PlayerState)currentState;
     }
+
+    public bool GetIsDead(){
+        return isDead;
+    }
+
 }

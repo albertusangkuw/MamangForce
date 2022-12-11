@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 914847517703417816}
   - component: {fileID: 7771808343834569390}
   - component: {fileID: 7771808343834569391}
+  - component: {fileID: -5198708013127880245}
   m_Layer: 0
   m_Name: Rambro
   m_TagString: Player
@@ -156,7 +157,6 @@ MonoBehaviour:
   specialGunAmmo: 10
   specialGunBurst: 1
   health: 100
-  isLadder: 0
 --- !u!114 &914847517703417816
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -228,6 +228,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.11648326, y: 0.1851721}
   m_EdgeRadius: 0
+--- !u!114 &-5198708013127880245
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7771808343834569380}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f45810b5b84f24bb7abe001e9e429792, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7771808344725772005
 GameObject:
   m_ObjectHideFlags: 0

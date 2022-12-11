@@ -41,7 +41,6 @@ public class GamePlay : MonoBehaviour
     void Update(){
         if(currPlayer.GetComponent<PlayerController>().GetCurrentState().Equals(PlayerState.Dead)){
            livesPlayer--; 
-           Destroy(currPlayer,3);
            if(livesPlayer > 0){
             // Transform Player to last position and facing forward
             respawn(lastCheckPoint,Quaternion.Euler(new Vector3(0,0,0)));
