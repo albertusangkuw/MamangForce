@@ -100,6 +100,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6bc1c79fe7732ec88cbe07ea35dbeda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player:
+  - {fileID: 3999557743170488863, guid: 04ddb199334f34636892c4436599cca2, type: 3}
+  - {fileID: 2182801821542340688, guid: 15f27ec71764543ce840a2fbe7af63b8, type: 3}
+  playerToSpawn: []
 --- !u!1001 &18077276853180953
 PrefabInstance:
   m_ObjectHideFlags: 0
