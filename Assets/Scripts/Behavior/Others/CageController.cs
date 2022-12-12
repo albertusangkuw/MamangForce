@@ -22,32 +22,26 @@ public class CageController : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
-        // currHit += 1;
-        // if (other.gameObject.CompareTag("Bullet") && currHit > 2)
-        // {
-        //     Destroy(gameObject);
-        // }
-
-        currHit += 1;
-        Debug.Log("Masuk currHit" + currHit);
-        if (other.gameObject.CompareTag("Bullet") && currHit >= 10)
+        if (other.gameObject.CompareTag("Bullet"))
         {
-            Destroy(gameObject);
-            GeneratedPlayer(other);
+            currHit += 1;
+            Debug.Log("Masuk currHit" + currHit);
+            if (currHit >= maxHitDestroyCage)
+            {
+                Destroy(gameObject);
+                GeneratedPlayer(other);
+            }
         }
     }
 
     public void GeneratedPlayer(Collider2D other)
     {
-        playerToSpawn.Clear();
-        playerToSpawn = new List<GameObject>();
         int randPlayerId = Random.Range(0, player.Count);
-
-        // Debug.Log("Masuk peluru : " + currHit);
         // Debug.Log("Posisi pintu :" + GameObject.FindGameObjectWithTag("EnemyDoor").transform.position);
         Vector2 position = transform.position;
         Quaternion rotation = Quaternion.Euler(new Vector3(0, 0, 0));
-        GameObject bulletIntance = Instantiate(player[randPlayerId], position, rotation);
+        GameObject playerIntance = Instantiate(player[randPlayerId], position, rotation);
+        playerIntance.GetComponent<PlayerController>().type = PlayerType.Prisoner;
 
         // generatedEnemies.Add(enemies[randEnemyId].enemyPrefab);
 

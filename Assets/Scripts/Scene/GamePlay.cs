@@ -69,6 +69,10 @@ public class GamePlay : MonoBehaviour
                     ", Prisoner:" + relasedPrisoner);
 
     }
+    public void changeTargetCamera(GameObject p)
+    {
+        vCam.m_Follow = p.transform;
+    }
 
     void LateUpdate()
     {

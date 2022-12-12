@@ -176,6 +176,7 @@ MonoBehaviour:
   specialGun: 122
   fireRate: 0.15
   climbRate: 0.15
+  isControl: 1
 --- !u!61 &7771808343834569390
 BoxCollider2D:
   m_ObjectHideFlags: 0
