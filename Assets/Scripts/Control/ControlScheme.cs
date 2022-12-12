@@ -15,7 +15,10 @@ public class ControlScheme : MonoBehaviour
     private PlayerController player;
     
     public float fireRate = 0.15F;
+
+    public float climbRate = 0.15F;
     private float nextFire = 0.0F;
+    private float climbFire = 0.0F;
     // Start is called before the first frame update
     void Start()
     {
@@ -41,11 +44,12 @@ public class ControlScheme : MonoBehaviour
         player.Forward();
       }
       
-      if(Input.GetKey(KeyCode.UpArrow)){
+      if((Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.DownArrow)) && Time.time > climbFire){
+        climbFire = Time.time + climbRate;
         player.Climb(Input.GetAxisRaw("Vertical"));
+      }else if(Input.GetKey(KeyCode.Space)){
         player.Jump();
       }
-
             
       if(Input.GetKeyUp(KeyCode.LeftArrow)){
         player.Stop();

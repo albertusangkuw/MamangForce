@@ -188,8 +188,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemies:
-  - {fileID: 4438422499678143598, guid: 583223a7da9104fd1b3ea4cef2cfc04b, type: 3}
-  - {fileID: 2148874613496519018, guid: 3fb0b5a4a8ea44bb8aa1a9784356d296, type: 3}
+  - {fileID: 5378833583581126052, guid: c26cf5c11c8544e3bbb9be822d1155b5, type: 3}
+  - {fileID: 2699031455274659542, guid: a0e37c66ca5cd45a2a02fc02e692e881, type: 3}
   enemiesToSpawn: []
 --- !u!1 &405621105048183099
 GameObject:
