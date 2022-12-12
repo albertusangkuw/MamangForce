@@ -8,7 +8,7 @@ public class Pause : MonoBehaviour, ExecuteMenu{
             {
                 case 0:
                     //Resume
-                    SceneChanger.ChangeScene("Level 2");
+                    SceneChanger.LoadPreviousScene();
                     break;
                 case 1:
                     //Restart Level

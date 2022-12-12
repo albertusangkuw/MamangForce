@@ -47,12 +47,13 @@ public class GamePlay : MonoBehaviour
            livesPlayer--; 
            if(livesPlayer > 0){
             // Transform Player to last position and facing forward
+            SceneChanger.ChangeSceneWait("ConditionLost",2);
             respawn(lastCheckPoint,Quaternion.Euler(new Vector3(0,0,0)));
            }else{
              // Game Over;
              Debug.Log("Game Over");
-            // SceneChanger.ChangeScene("Game Over");
-            Destroy(gameObject);
+             SceneChanger.ChangeScene("GameOver");
+             Destroy(gameObject);
            }
         }
         Debug.Log("Boss E:" + killedBoss +
@@ -69,7 +70,7 @@ public class GamePlay : MonoBehaviour
     }
     
     private void respawn(Vector2 position, Quaternion rotation){
-    //   SceneChanger.ChangeScene("Mission Failed");  
+      
       var newPlayer = Instantiate(playerPrefab,position,rotation);
       vCam.m_Follow = newPlayer.transform;
       currPlayer = newPlayer;
@@ -90,6 +91,13 @@ public class GamePlay : MonoBehaviour
 
     void SummarySum(){
         //Tampilkan dan hitung score
+        int totalSum = 0;
+        int poinBoss = 15;
+        int poinPrisoner = 10;
+        int poinSoldier = 5;
+        totalSum = poinBoss *killedBoss + poinPrisoner* relasedPrisoner + poinSoldier * killedSoldier;
+        level.Add("Level " + currentLevel, totalSum);
+        currentLevel++;
         SceneChanger.ChangeScene("Level "+ currentLevel);
         Destroy(gameObject);
     }

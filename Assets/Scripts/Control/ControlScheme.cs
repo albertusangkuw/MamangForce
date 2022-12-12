@@ -28,6 +28,10 @@ public class ControlScheme : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+      if(Input.GetKeyUp(KeyCode.Escape)){
+        SceneChanger.ChangeScene("Pause");
+        return;
+      }
       if(Input.GetKey(KeyCode.X) && Time.time > nextFire){
         nextFire = Time.time + fireRate;
         player.ShootMainGun();

@@ -13,6 +13,6 @@ public class GameOver : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        SceneChanger.ChangeSceneWait("Level 1", 3 );
     }
 }

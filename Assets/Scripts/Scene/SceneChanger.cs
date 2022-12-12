@@ -5,26 +5,33 @@ using UnityEngine.SceneManagement;
 
 public class SceneChanger : MonoBehaviour
 {
-
-    public GameObject selectOption;
+    private static SceneController sc;
+    
     // Start is called before the first frame update
     void Start()
     {
+        sc = new SceneController();
         ChangeScene("Home");
     }
 
 
     public static void ChangeScene(string sceneName)
     {
-        SceneManager.LoadScene(sceneName);
+        sc.LoadScene(sceneName);
+     //   SceneManager.LoadScene(sceneName);
     }
 
-    public static IEnumerator ChangeSceneDelay(string sceneName, float delay){
-         yield return new WaitForSeconds(delay);
-         SceneManager.LoadScene(sceneName);
-     }
-    public void Exit()
+    public static void LoadPreviousScene()
     {
-        Application.Quit();
+        sc.LoadPreviousScene();
+    }
+   public static  IEnumerator ChangeSceneWait(string sceneName, float time){
+        yield return new WaitForSecondsRealtime(time);
+        ChangeScene(sceneName);
+    }
+
+    public static  IEnumerator BackSceneWait(float time){
+        yield return new WaitForSecondsRealtime(time);
+        LoadPreviousScene();
     }
 }
