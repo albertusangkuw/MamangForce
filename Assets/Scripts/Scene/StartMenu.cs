@@ -40,7 +40,7 @@ public class StartMenu : MonoBehaviour
             
         }
         if(Input.GetKeyDown(KeyCode.X)){
-            SceneChanger.ChangeScene("Level 4");
+           
         }
         MoveBackground(selectedOption);
     }
