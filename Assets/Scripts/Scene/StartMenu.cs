@@ -3,13 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+public interface ExecuteMenu
+{
+    void RunMenu(int index);
+}
 public class StartMenu : MonoBehaviour
 {
     
     // public Text exit;
 
     public GameObject[] menuList;
-
+    public ExecuteMenu menuExec;
     private int currentSelected ;    
     private int selectedOption;
 
@@ -18,7 +22,7 @@ public class StartMenu : MonoBehaviour
     {
         selectedOption = 0;
         currentSelected = 0;
-        
+        menuExec = GetComponent<ExecuteMenu>();
     }
 
     // Update is called once per frame
@@ -40,23 +44,9 @@ public class StartMenu : MonoBehaviour
             
         }
         if(Input.GetKeyDown(KeyCode.X)){
-           
+           menuExec.RunMenu(selectedOption);
         }
         MoveBackground(selectedOption);
-    }
-    void SelectedOption(int selectedOption){
-        switch (selectedOption) 
-            {
-                case 1:
-                    
-                    break;
-                case 2:
-                    
-                    break;
-                case 3:
-                    
-                    break;
-            }
     }
     void MoveBackground(int idx){
         transform.position = menuList[idx].transform.position;

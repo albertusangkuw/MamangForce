@@ -13,16 +13,16 @@ public class SceneChanger : MonoBehaviour
         ChangeScene("Home");
     }
 
-    // // Update is called once per frame
-    // void Update()
-    // {
-
-    // }
 
     public static void ChangeScene(string sceneName)
     {
         SceneManager.LoadScene(sceneName);
     }
+
+    public static IEnumerator ChangeSceneDelay(string sceneName, float delay){
+         yield return new WaitForSeconds(delay);
+         SceneManager.LoadScene(sceneName);
+     }
     public void Exit()
     {
         Application.Quit();
