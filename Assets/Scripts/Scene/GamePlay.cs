@@ -6,12 +6,16 @@ public class GamePlay : MonoBehaviour
 {
     //Ref Point for other script
     public static GamePlay Instance { get; private set; }
+    
+    public static Dictionary<string, int> level = new Dictionary<string, int>();
     // Shared Variabel
     public Vector2 lastCheckPoint;
     public GameObject playerPrefab;
     public int livesPlayer = 1;
     public bool isGameFinished = false;
 
+    public int currentLevel = 1;
+    
     private CinemachineVirtualCamera vCam;
     private List<PlayerController> bossEnemyInst;
     
@@ -47,6 +51,8 @@ public class GamePlay : MonoBehaviour
            }else{
              // Game Over;
              Debug.Log("Game Over");
+            // SceneChanger.ChangeScene("Game Over");
+            Destroy(gameObject);
            }
         }
         Debug.Log("Boss E:" + killedBoss +
@@ -57,12 +63,13 @@ public class GamePlay : MonoBehaviour
 
     void LateUpdate(){
         if(isGameFinished){
-            //
             Debug.Log("Game is finish !!@");
+            SummarySum();
         }
     }
     
     private void respawn(Vector2 position, Quaternion rotation){
+    //   SceneChanger.ChangeScene("Mission Failed");  
       var newPlayer = Instantiate(playerPrefab,position,rotation);
       vCam.m_Follow = newPlayer.transform;
       currPlayer = newPlayer;
@@ -82,8 +89,9 @@ public class GamePlay : MonoBehaviour
     }  
 
     void SummarySum(){
-        //myCinemachine = GetComponent<CinemachineVirtualCamera>();
         //Tampilkan dan hitung score
+        SceneChanger.ChangeScene("Level "+ currentLevel);
+        Destroy(gameObject);
     }
     void OnDestory(){
         //Clean Gameplay Instance
