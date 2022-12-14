@@ -6,7 +6,7 @@ public class GamePlay : MonoBehaviour
 {
     //Ref Point for other script
     public static GamePlay Instance { get; private set; }
-    
+
     public static Dictionary<string, int> level = new Dictionary<string, int>();
     // Shared Variabel
     public Vector2 lastCheckPoint;
@@ -15,95 +15,122 @@ public class GamePlay : MonoBehaviour
     public bool isGameFinished = false;
 
     public int currentLevel = 1;
-    
+
     private CinemachineVirtualCamera vCam;
     private List<PlayerController> bossEnemyInst;
-    
+
     private GameObject currPlayer;
     private int killedBoss;
     private int killedSoldier;
     private int relasedPrisoner;
 
     // Always use empty Instance
-   private void Awake(){
-        
-        if(Instance != null && Instance != this){ 
-            Destroy(this); 
-        } 
-        else{ 
-            Instance = this; 
-        } 
+    private void Awake()
+    {
+
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            Instance = this;
+        }
     }
     // Start is called before the first frame update
     void Start()
     {
-        vCam =  gameObject.GetComponent<CinemachineVirtualCamera>();
-        respawn(lastCheckPoint,Quaternion.Euler(new Vector3(0,0,0)));
+        vCam = gameObject.GetComponent<CinemachineVirtualCamera>();
+        respawn(lastCheckPoint, Quaternion.Euler(new Vector3(0, 0, 0)));
     }
 
     // Update is called once per frame
-    void Update(){
-        if(currPlayer.GetComponent<PlayerController>().GetCurrentState().Equals(PlayerState.Dead)){
-           livesPlayer--; 
-           if(livesPlayer > 0){
-            // Transform Player to last position and facing forward
-            SceneChanger.ChangeSceneWait("ConditionLost",2);
-            respawn(lastCheckPoint,Quaternion.Euler(new Vector3(0,0,0)));
-           }else{
-             // Game Over;
-             Debug.Log("Game Over");
-             SceneChanger.ChangeScene("GameOver");
-             Destroy(gameObject);
-           }
+    void Update()
+    {
+        if (currPlayer.GetComponent<PlayerController>().GetCurrentState().Equals(PlayerState.Dead))
+        {
+            livesPlayer--;
+            if (livesPlayer > 0)
+            {
+                // Transform Player to last position and facing forward
+                SceneChanger.ChangeSceneWait("ConditionLost", 2);
+                respawn(lastCheckPoint, Quaternion.Euler(new Vector3(0, 0, 0)));
+            }
+            else
+            {
+                // Game Over;
+                Debug.Log("Game Over");
+                SceneChanger.ChangeScene("GameOver");
+                Destroy(gameObject);
+            }
         }
         Debug.Log("Boss E:" + killedBoss +
-                    ", Reg E:" + killedSoldier +  
+                    ", Reg E:" + killedSoldier +
                     ", Prisoner:" + relasedPrisoner);
 
     }
+    public void changeTargetCamera(GameObject p)
+    {
+        vCam.m_Follow = p.transform;
+    }
 
-    void LateUpdate(){
-        if(isGameFinished){
+    void LateUpdate()
+    {
+        if (isGameFinished)
+        {
             Debug.Log("Game is finish !!@");
             SummarySum();
         }
     }
-    
-    private void respawn(Vector2 position, Quaternion rotation){
-      
-      var newPlayer = Instantiate(playerPrefab,position,rotation);
-      vCam.m_Follow = newPlayer.transform;
-      currPlayer = newPlayer;
+
+    private void respawn(Vector2 position, Quaternion rotation)
+    {
+
+        var newPlayer = Instantiate(playerPrefab, position, rotation);
+        vCam.m_Follow = newPlayer.transform;
+        currPlayer = newPlayer;
     }
-  
-    public void UpdatePlayerState(PlayerController player){
-        if(player.type.Equals(PlayerType.Boss)){
+
+    public void UpdatePlayerState(PlayerController player)
+    {
+        if (player.type.Equals(PlayerType.Boss))
+        {
             killedBoss++;
         }
-        if(player.type.Equals(PlayerType.Prisoner)){
-            relasedPrisoner++;    
+        if (player.type.Equals(PlayerType.Prisoner))
+        {
+            relasedPrisoner++;
             livesPlayer++;
         }
-        if(player.type.Equals(PlayerType.Soldier)){
+        if (player.type.Equals(PlayerType.Soldier))
+        {
             killedSoldier++;
         }
-    }  
+    }
 
-    void SummarySum(){
+    void SummarySum()
+    {
         //Tampilkan dan hitung score
         int totalSum = 0;
         int poinBoss = 15;
         int poinPrisoner = 10;
         int poinSoldier = 5;
-        totalSum = poinBoss *killedBoss + poinPrisoner* relasedPrisoner + poinSoldier * killedSoldier;
+        totalSum = poinBoss * killedBoss + poinPrisoner * relasedPrisoner + poinSoldier * killedSoldier;
         level.Add("Level " + currentLevel, totalSum);
+        if (currentLevel == 3)
+        {
+            SceneChanger.ChangeScene("ConditionWin");
+            return;
+        }
         currentLevel++;
-        SceneChanger.ChangeScene("Level "+ currentLevel);
+        SceneChanger.ChangeScene("Level " + currentLevel);
         Destroy(gameObject);
     }
-    void OnDestory(){
+    void OnDestory()
+    {
         //Clean Gameplay Instance
-        if(Instance == this){
+        if (Instance == this)
+        {
             Instance = null;
         }
     }

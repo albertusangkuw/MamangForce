@@ -38,7 +38,7 @@ public class PlayerController : MonoBehaviour
     protected int currentState = (int)PlayerState.Idle;
     protected Animator animationComponent;
     protected Rigidbody2D rigidComponent;
-    
+
     protected float speed = 5f;
     protected float defaultGravityScale;
     protected float originalMoveSpeed;
@@ -59,15 +59,18 @@ public class PlayerController : MonoBehaviour
         Debug.Log(((PlayerState)currentState).ToString() + " ; " + isOnGround + ";" + rigidComponent.velocity.x + "u/s");
     }
 
-    void LateUpdate(){
-        if(health <= 0){
-            currentState = (int) PlayerState.Dead;
-            if(isDead){
+    void LateUpdate()
+    {
+        if (health <= 0)
+        {
+            currentState = (int)PlayerState.Dead;
+            if (isDead)
+            {
                 return;
             }
             transform.Rotate(transform.eulerAngles.x, transform.eulerAngles.y, 90, Space.Self);
             isDead = true;
-            Destroy(gameObject,5);
+            Destroy(gameObject, 5);
         }
     }
     public void Forward()
@@ -113,10 +116,11 @@ public class PlayerController : MonoBehaviour
     public void Climb(float verticalAxisRaw)
     {
         float speed = 40f;
-        if (isLadder){
-            rigidComponent.velocity = new Vector2(0,0);
+        if (isLadder)
+        {
+            rigidComponent.velocity = new Vector2(0, 0);
             rigidComponent.gravityScale = 0f;
-            transform.Translate(Vector2.up*verticalAxisRaw*speed*Time.deltaTime);
+            transform.Translate(Vector2.up * verticalAxisRaw * speed * Time.deltaTime);
         }
     }
 
@@ -172,44 +176,68 @@ public class PlayerController : MonoBehaviour
         currentState = (int)PlayerState.Idle;
     }
 
-    private void OnTriggerEnter2D(Collider2D other){
+    private void OnTriggerEnter2D(Collider2D other)
+    {
         // Check Ground
-        if(other.CompareTag("Object")){
+        if (other.CompareTag("Object"))
+        {
             currentState = (int)PlayerState.Idle;
             isOnGround = true;
         }
         // Check Bullet Hit
-        if(other.CompareTag("Bullet")){
+        if (other.CompareTag("Bullet"))
+        {
             var b = other.GetComponent<Bullet>();
-            if(b.whiteList != gameObject){
-                health-=b.damage;
+            if (b.whiteList != gameObject)
+            {
+                health -= b.damage;
             }
         }
         // Check if Out of Space Limit
-        if(other.CompareTag("SpaceLimit")){
-            health=0;
+        if (other.CompareTag("SpaceLimit"))
+        {
+            health = 0;
         }
 
         // Check Ladder
-        if (other.CompareTag("Ladder")){
+        if (other.CompareTag("Ladder"))
+        {
             isLadder = true;
             Debug.Log("Ladder is True");
-        }    
+        }
+        // Check is Prisoner
+        if (other.CompareTag("Player"))
+        {
+            var anotherPlayer = other.GetComponent<PlayerController>();
+            if (anotherPlayer.type.Equals(PlayerType.Prisoner))
+            {
+                GamePlay.Instance.playerPrefab = other.gameObject;
+                GamePlay.Instance.livesPlayer += 1;
+                GamePlay.Instance.changeTargetCamera(other.gameObject);
+                other.GetComponent<ControlScheme>().isControl = true;
+                Destroy(gameObject);
+            }
+        }
+
     }
-    private void OnTriggerExit2D(Collider2D collision){
-        if(collision.CompareTag("Ladder")){
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Ladder"))
+        {
             isLadder = false;
             rigidComponent.gravityScale = defaultGravityScale;
             Debug.Log("Ladder is False");
         }
     }
-    
-    
-    public PlayerState GetCurrentState(){
+
+
+    public PlayerState GetCurrentState()
+    {
         return (PlayerState)currentState;
     }
 
-    public bool GetIsDead(){
+    public bool GetIsDead()
+    {
         return isDead;
     }
 

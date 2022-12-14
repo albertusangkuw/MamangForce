@@ -21,7 +21,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Level/Level 3.unity
     guid: f7d370943855c49eba11d1979e65669a
   - enabled: 1
-    path: Assets/Scenes/Level/Level 4.unity
+    path: Assets/Scenes/Level/Level 3.unity
     guid: b336373442803f549b70d7d11c0dec21
   - enabled: 1
     path: Assets/Scenes/Menu/ConditionLost.unity
@@ -35,6 +35,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Menu/Pause.unity
     guid: fb7df3e95694e714e9c0f929e4733b56
+  - enabled: 1
+    path: Assets/Scenes/Menu/Credit.unity
+    guid: e572156479a92ff44851c3247aa323d1
   - enabled: 1
     path: Assets/Scenes/Menu/GameOver.unity
     guid: a12c7749e6fcb2c419c73a254dd07d7b

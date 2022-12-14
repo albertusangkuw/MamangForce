@@ -49,8 +49,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player:
   - {fileID: 7771808343834569380, guid: 896d216aa0b420d1bbbb5d32f8d2e6c5, type: 3}
-  - {fileID: 2182801821542340688, guid: 15f27ec71764543ce840a2fbe7af63b8, type: 3}
-  - {fileID: 3999557743170488863, guid: 04ddb199334f34636892c4436599cca2, type: 3}
+  - {fileID: 7771808343834569380, guid: af80bc4bf0d6caa49be169f9c855086b, type: 3}
+  - {fileID: 7771808343834569380, guid: 113b14fa2b221d74c93f6b587039bbfc, type: 3}
   playerToSpawn: []
 --- !u!61 &-6970313510414089870
 BoxCollider2D:
