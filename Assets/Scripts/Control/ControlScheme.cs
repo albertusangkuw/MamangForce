@@ -27,7 +27,7 @@ public class ControlScheme : MonoBehaviour
     void Start()
     {
         player = GetComponent<PlayerController>();
-        isControl = player.type.Equals(PlayerType.Playable);
+        
     }
 
     // Update is called once per frame
@@ -81,5 +81,8 @@ public class ControlScheme : MonoBehaviour
         {
             player.Stop();
         }
+    }
+    void LateUpdate(){
+        isControl = player.type.Equals(PlayerType.Playable);
     }
 }

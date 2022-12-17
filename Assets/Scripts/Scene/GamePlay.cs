@@ -49,11 +49,15 @@ public class GamePlay : MonoBehaviour
     {
         vCam = gameObject.GetComponent<CinemachineVirtualCamera>();
         respawn(lastCheckPoint, Quaternion.Euler(new Vector3(0, 0, 0)));
+        StartCoroutine(changeTargetCamera(0, currPlayer));
     }
 
     // Update is called once per frame
     void Update()
     {
+        if(currPlayer == null){
+            return;
+        }
         PlayerController curr = currPlayer.GetComponent<PlayerController>();
         
         if(pauseInstance == null && curr.isPause){
@@ -64,17 +68,14 @@ public class GamePlay : MonoBehaviour
         }
         
         
-        if (curr.GetCurrentState().Equals(PlayerState.Dead))
+        if (curr.GetIsDead())
         {
             livesPlayer--;
-            if (livesPlayer > 0)
-            {
-                // Transform Player to last position and facing forward
-                SceneChanger.ChangeSceneWait("ConditionLost", 2);
-                respawn(lastCheckPoint, Quaternion.Euler(new Vector3(0, 0, 0)));
+            if (livesPlayer > 0){
+               currPlayer=null;
+               ShowMissionFailed();
             }
-            else
-            {
+            else{
                 // Game Over;
                 Debug.Log("Game Over");
                 SceneChanger.ChangeScene("GameOver");
@@ -87,8 +88,9 @@ public class GamePlay : MonoBehaviour
                     ", Prisoner:" + relasedPrisoner);
 
     }
-    public void changeTargetCamera(GameObject p)
+    public IEnumerator changeTargetCamera(float delay, GameObject p)
     {
+        yield return new WaitForSecondsRealtime(delay);
         vCam.m_Follow = p.transform;
     }
 
@@ -101,14 +103,17 @@ public class GamePlay : MonoBehaviour
 
     private void respawn(Vector2 position, Quaternion rotation)
     {
-
         var newPlayer = Instantiate(playerPrefab, position, rotation);
-        vCam.m_Follow = newPlayer.transform;
         currPlayer = newPlayer;
+        var curr = currPlayer.GetComponent<PlayerController>();
+        curr.type = PlayerType.Playable;
     }
 
     public void UpdatePlayerState(PlayerController player)
     {
+        if(currPlayer == null){
+            return;
+        }
         if (player.type.Equals(PlayerType.Boss))
         {
             killedBoss++;
@@ -139,6 +144,17 @@ public class GamePlay : MonoBehaviour
         Destroy(pauseInstance);
     }
 
+    protected void ShowMissionFailed(){
+        var scale = 2.2f;
+        var currPos = gameObject.transform.position;
+        var failedInstance = Instantiate(failedPrefab,new Vector2(currPos.x, currPos.y),Quaternion.Euler(new Vector3(0, 0, 0)));
+        failedInstance.transform.localScale = new Vector3(failedPrefab.transform.localScale.x * scale, 
+                                                       failedPrefab.transform.localScale.y  * scale, 
+                                                       failedPrefab.transform.localScale.z  * scale);
+        Destroy(failedInstance,2);
+        respawn(lastCheckPoint, Quaternion.Euler(new Vector3(0, 0, 0)));
+        StartCoroutine(changeTargetCamera(2.5f, currPlayer));
+    }
     void SummarySum()
     {
         //Tampilkan dan hitung score

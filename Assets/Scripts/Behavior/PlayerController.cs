@@ -8,6 +8,7 @@ public enum PlayerType
     Prisoner,
     Soldier,
     Boss,
+    UnLabeled
 }
 public enum PlayerState
 {
@@ -19,7 +20,7 @@ public enum PlayerState
 }
 public class PlayerController : MonoBehaviour
 {
-    public PlayerType type = PlayerType.Prisoner;
+    public PlayerType type = PlayerType.UnLabeled;
     public GameObject mainBullet;
     public GameObject specialBullet;
     public float moveSpeed = 30;
@@ -59,7 +60,7 @@ public class PlayerController : MonoBehaviour
     {
         animationComponent.SetFloat("Speed", Mathf.Abs(rigidComponent.velocity.x));
         Debug.Log(((PlayerState)currentState).ToString() + " ; " + isOnGround + ";" + rigidComponent.velocity.x + "u/s");
-        if(isPause){
+        if(isPause || isDead){
             rigidComponent.bodyType = RigidbodyType2D.Static;
             return;
         }else{
@@ -68,13 +69,14 @@ public class PlayerController : MonoBehaviour
         if (health <= 0)
         {
             currentState = (int)PlayerState.Dead;
-            if (isDead)
-            {
+            if (isDead){
                 return;
             }
+            rigidComponent.bodyType = RigidbodyType2D.Static;
+            type = PlayerType.UnLabeled;
             transform.Rotate(transform.eulerAngles.x, transform.eulerAngles.y, 90, Space.Self);
             isDead = true;
-            Destroy(gameObject, 5);
+            Destroy(gameObject, 1);
         }
     }
     public void Forward()
@@ -220,7 +222,7 @@ public class PlayerController : MonoBehaviour
             {
                 GamePlay.Instance.playerPrefab = other.gameObject;
                 GamePlay.Instance.livesPlayer += 1;
-                GamePlay.Instance.changeTargetCamera(other.gameObject);
+                GamePlay.Instance.changeTargetCamera(0,other.gameObject);
                 other.GetComponent<ControlScheme>().isControl = true;
                 Destroy(gameObject);
             }

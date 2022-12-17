@@ -7,17 +7,19 @@ public class GameOver : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+         StartCoroutine(changeSceneToMainMenu());
     }
 
     // Update is called once per frame
     void Update()
     {
-        // SceneChanger.ChangeSceneWait("Level 1", 3 );
-        if (Input.GetKeyUp(KeyCode.X))
-        {
+        if (Input.GetKeyUp(KeyCode.X)){
             SceneChanger.ChangeScene("Level 1");
             return;
         }
+    }
+    private IEnumerator changeSceneToMainMenu(){
+        yield return new WaitForSecondsRealtime(3);
+        SceneChanger.ChangeScene("Home");
     }
 }

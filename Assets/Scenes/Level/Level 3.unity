@@ -18832,7 +18832,8 @@ MonoBehaviour:
     type: 3}
   pausePrefab: {fileID: 2136684140277180109, guid: 048183be2a500c2ed8fce572e885290a,
     type: 3}
-  gameOverPrefab: {fileID: 0}
+  gameOverPrefab: {fileID: 1065536683065149028, guid: 235cc113b0276c12fa28beaa0a752622,
+    type: 3}
   winPrefab: {fileID: 0}
   failedPrefab: {fileID: 7113508262742418013, guid: 9a4e2a768689bbc24a84e5770069c33d,
     type: 3}
