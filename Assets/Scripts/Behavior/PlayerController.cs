@@ -29,12 +29,15 @@ public class PlayerController : MonoBehaviour
     public float specialGunAmmo = 4;
     public float specialGunBurst = 4;
     public float health = 100;
+    public bool isPause = false;
+    
 
     protected bool isOnGround = false;
     protected bool isFacingForward = true;
     protected bool isLadder;
     protected bool isClimbing;
     protected bool isDead = false;
+    
     protected int currentState = (int)PlayerState.Idle;
     protected Animator animationComponent;
     protected Rigidbody2D rigidComponent;
@@ -52,15 +55,16 @@ public class PlayerController : MonoBehaviour
         defaultGravityScale = rigidComponent.gravityScale;
     }
 
-    // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
         animationComponent.SetFloat("Speed", Mathf.Abs(rigidComponent.velocity.x));
         Debug.Log(((PlayerState)currentState).ToString() + " ; " + isOnGround + ";" + rigidComponent.velocity.x + "u/s");
-    }
-
-    void LateUpdate()
-    {
+        if(isPause){
+            rigidComponent.bodyType = RigidbodyType2D.Static;
+            return;
+        }else{
+            rigidComponent.bodyType = RigidbodyType2D.Dynamic;
+        }
         if (health <= 0)
         {
             currentState = (int)PlayerState.Dead;
@@ -178,6 +182,9 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        if(isPause){
+            return;
+        }
         // Check Ground
         if (other.CompareTag("Object"))
         {
@@ -222,6 +229,9 @@ public class PlayerController : MonoBehaviour
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
+        if(isPause){
+            return;
+        }
         if (collision.CompareTag("Ladder"))
         {
             isLadder = false;
@@ -235,7 +245,6 @@ public class PlayerController : MonoBehaviour
     {
         return (PlayerState)currentState;
     }
-
     public bool GetIsDead()
     {
         return isDead;

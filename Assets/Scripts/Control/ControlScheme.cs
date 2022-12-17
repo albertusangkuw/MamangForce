@@ -20,6 +20,8 @@ public class ControlScheme : MonoBehaviour
     private float nextFire = 0.0F;
     private float climbFire = 0.0F;
 
+    private bool isPause = false;
+
     public bool isControl = true;
     // Start is called before the first frame update
     void Start()
@@ -31,15 +33,16 @@ public class ControlScheme : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (!isControl)
-        {
-            return;
-        }
         if (Input.GetKeyUp(KeyCode.Escape))
         {
-            SceneChanger.ChangeScene("Pause");
+            player.isPause = !player.isPause;
             return;
         }
+        if (!isControl || player.isPause)
+        {
+            return;
+        }
+        
         if (Input.GetKey(KeyCode.X) && Time.time > nextFire)
         {
             nextFire = Time.time + fireRate;

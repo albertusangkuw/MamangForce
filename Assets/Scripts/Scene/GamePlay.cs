@@ -11,6 +11,12 @@ public class GamePlay : MonoBehaviour
     // Shared Variabel
     public Vector2 lastCheckPoint;
     public GameObject playerPrefab;
+
+    public GameObject pausePrefab;
+    public GameObject gameOverPrefab;
+    public GameObject winPrefab;
+    public GameObject failedPrefab;
+
     public int livesPlayer = 1;
     public bool isGameFinished = false;
 
@@ -24,6 +30,7 @@ public class GamePlay : MonoBehaviour
     private int killedSoldier;
     private int relasedPrisoner;
 
+    private GameObject pauseInstance;
     // Always use empty Instance
     private void Awake()
     {
@@ -47,7 +54,17 @@ public class GamePlay : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (currPlayer.GetComponent<PlayerController>().GetCurrentState().Equals(PlayerState.Dead))
+        PlayerController curr = currPlayer.GetComponent<PlayerController>();
+        
+        if(pauseInstance == null && curr.isPause){
+            Pause();
+            return;    
+        }else if(pauseInstance != null && !curr.isPause ){
+            Destroy(pauseInstance);
+        }
+        
+        
+        if (curr.GetCurrentState().Equals(PlayerState.Dead))
         {
             livesPlayer--;
             if (livesPlayer > 0)
@@ -64,6 +81,7 @@ public class GamePlay : MonoBehaviour
                 Destroy(gameObject);
             }
         }
+        
         Debug.Log("Boss E:" + killedBoss +
                     ", Reg E:" + killedSoldier +
                     ", Prisoner:" + relasedPrisoner);
@@ -76,9 +94,7 @@ public class GamePlay : MonoBehaviour
 
     void LateUpdate()
     {
-        if (isGameFinished)
-        {
-            Debug.Log("Game is finish !!@");
+        if (isGameFinished){
             SummarySum();
         }
     }
@@ -108,6 +124,16 @@ public class GamePlay : MonoBehaviour
         }
     }
 
+    void Pause(){
+        var scale = 2.2f;
+        var currPos = gameObject.transform.position;
+        pauseInstance = Instantiate(pausePrefab,new Vector2(currPos.x, currPos.y),Quaternion.Euler(new Vector3(0, 0, 0)));
+        pauseInstance.transform.localScale = new Vector3(pausePrefab.transform.localScale.x * scale, 
+                                                       pausePrefab.transform.localScale.y  * scale, 
+                                                       pausePrefab.transform.localScale.z  * scale);
+                                                       Debug.Log("Haii ini puase");
+    }
+
     void SummarySum()
     {
         //Tampilkan dan hitung score
@@ -135,3 +161,4 @@ public class GamePlay : MonoBehaviour
         }
     }
 }
+
