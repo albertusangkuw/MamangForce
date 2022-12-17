@@ -18830,7 +18830,7 @@ MonoBehaviour:
   lastCheckPoint: {x: -12.5, y: 0}
   playerPrefab: {fileID: 7771808343834569380, guid: 113b14fa2b221d74c93f6b587039bbfc,
     type: 3}
-  pausePrefab: {fileID: 7113508262742418013, guid: c47b4f23357dafd15854e9bf344fa243,
+  pausePrefab: {fileID: 2136684140277180109, guid: 048183be2a500c2ed8fce572e885290a,
     type: 3}
   gameOverPrefab: {fileID: 0}
   winPrefab: {fileID: 0}

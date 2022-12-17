@@ -13,12 +13,14 @@ public class MainF : MonoBehaviour, ExecuteMenu
                 SceneChanger.ChangeScene("Level 1");
                 break;
             case 1:
+                Debug.Log("Menu Belum Tersedia");
                 // SceneChanger.ChangeScene("Options");
                 break;
             case 2:
                 SceneChanger.ChangeScene("Credit");
                 break;
             case 3:
+                Debug.Log("Program Quit");
                 Application.Quit();
                 break;
         }

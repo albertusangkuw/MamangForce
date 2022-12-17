@@ -13,7 +13,7 @@ public class SelectorMenu : MonoBehaviour
     public GameObject[] menuList;
     public ExecuteMenu menuExec;
     private int currentSelected ;    
-    private int selectedOption;
+    public int selectedOption;
 
     // Use this for initialization
     void Start()
@@ -47,9 +47,12 @@ public class SelectorMenu : MonoBehaviour
         MoveBackground(selectedOption);
     }
     void MoveBackground(int idx){
-        var xScale = 0.28f;
+        if(menuList.Length ==0){
+            return;
+        }
+        var xScale = 1;
         var rectMenu = menuList[idx].GetComponent<RectTransform>();
-        transform.localScale = new Vector3(rectMenu.rect.width*xScale, transform.localScale.y, transform.localScale.z);
+        transform.localScale = new Vector3(rectMenu.rect.width+xScale, rectMenu.rect.height+0.5f, transform.localScale.z);
         transform.position = menuList[idx].transform.position;
     }
 }

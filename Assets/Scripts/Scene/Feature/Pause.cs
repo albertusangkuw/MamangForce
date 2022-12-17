@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class Pause : MonoBehaviour, ExecuteMenu{
      public void RunMenu(int index){
+        
           switch (index) 
             {
                 case 0:
                     //Resume
-                    SceneChanger.LoadPreviousScene();
+                    GamePlay.Instance.Unpause();
                     break;
                 case 1:
                     //Restart Level

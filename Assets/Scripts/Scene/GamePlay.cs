@@ -131,7 +131,12 @@ public class GamePlay : MonoBehaviour
         pauseInstance.transform.localScale = new Vector3(pausePrefab.transform.localScale.x * scale, 
                                                        pausePrefab.transform.localScale.y  * scale, 
                                                        pausePrefab.transform.localScale.z  * scale);
-                                                       Debug.Log("Haii ini puase");
+    }
+
+    public void Unpause(){
+        PlayerController curr = currPlayer.GetComponent<PlayerController>();
+        curr.isPause = false;
+        Destroy(pauseInstance);
     }
 
     void SummarySum()
