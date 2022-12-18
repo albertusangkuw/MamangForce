@@ -73,9 +73,10 @@ public class PlayerController : MonoBehaviour
                 return;
             }
             rigidComponent.bodyType = RigidbodyType2D.Static;
-            type = PlayerType.UnLabeled;
             transform.Rotate(transform.eulerAngles.x, transform.eulerAngles.y, 90, Space.Self);
             isDead = true;
+            GamePlay.Instance.UpdatePlayerState(this);
+            type = PlayerType.UnLabeled;
             Destroy(gameObject, 1);
         }
     }

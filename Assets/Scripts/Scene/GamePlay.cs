@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
+using TMPro;
+
 public class GamePlay : MonoBehaviour
 {
     //Ref Point for other script
@@ -21,6 +23,8 @@ public class GamePlay : MonoBehaviour
     public bool isGameFinished = false;
 
     public int currentLevel = 1;
+
+    public int maxLevel = 3;
 
     private CinemachineVirtualCamera vCam;
     private List<PlayerController> bossEnemyInst;
@@ -97,7 +101,8 @@ public class GamePlay : MonoBehaviour
     void LateUpdate()
     {
         if (isGameFinished){
-            SummarySum();
+           StartCoroutine(SummarySum());
+           isGameFinished = false;
         }
     }
 
@@ -111,9 +116,11 @@ public class GamePlay : MonoBehaviour
 
     public void UpdatePlayerState(PlayerController player)
     {
+        
         if(currPlayer == null){
             return;
         }
+        Debug.Log("Type Player:" + player.type);
         if (player.type.Equals(PlayerType.Boss))
         {
             killedBoss++;
@@ -155,23 +162,43 @@ public class GamePlay : MonoBehaviour
         respawn(lastCheckPoint, Quaternion.Euler(new Vector3(0, 0, 0)));
         StartCoroutine(changeTargetCamera(2.5f, currPlayer));
     }
-    void SummarySum()
+
+    protected void ShowScoreMissionSuccess(int totalScore){
+        var scale = 0.05f;
+        var currPos = gameObject.transform.position;
+        Debug.Log("Score sekarang: " + totalScore );
+        var winInstance = Instantiate(winPrefab,new Vector2(currPos.x, currPos.y),Quaternion.Euler(new Vector3(0, 0, 0)));
+        winInstance.transform.localScale = new Vector3(winPrefab.transform.localScale.x * scale, 
+                                                       winPrefab.transform.localScale.y  * scale, 
+                                                       winPrefab.transform.localScale.z  * scale);
+        var scoreValue = winInstance.transform.Find("ScoreValue");
+        if(scoreValue != null){
+            scoreValue.GetComponent<TextMeshProUGUI>().text = ": " + totalScore;
+        }else{
+            Debug.Log("Value Label Not Found");
+        }
+    }
+    protected IEnumerator SummarySum()
     {
-        //Tampilkan dan hitung score
-        int totalSum = 0;
+        yield return new WaitForSecondsRealtime(1);
+        var curr = currPlayer.GetComponent<PlayerController>();
+        curr.type = PlayerType.UnLabeled;
+        //Hitung score
         int poinBoss = 15;
         int poinPrisoner = 10;
         int poinSoldier = 5;
-        totalSum = poinBoss * killedBoss + poinPrisoner * relasedPrisoner + poinSoldier * killedSoldier;
-        level.Add("Level " + currentLevel, totalSum);
-        if (currentLevel == 3)
-        {
-            SceneChanger.ChangeScene("ConditionWin");
-            return;
+        var totalScore= poinBoss * killedBoss + poinPrisoner * relasedPrisoner + poinSoldier * killedSoldier;
+        //Tampilkan Score
+        ShowScoreMissionSuccess(totalScore);
+        
+        yield return new WaitForSecondsRealtime(4);
+        if(currentLevel < maxLevel){
+            currentLevel++;
+            SceneChanger.ChangeScene("Level " + currentLevel);
+            Destroy(gameObject);
+        }else{
+            SceneChanger.ChangeScene("GameOver");
         }
-        currentLevel++;
-        SceneChanger.ChangeScene("Level " + currentLevel);
-        Destroy(gameObject);
     }
     void OnDestory()
     {
