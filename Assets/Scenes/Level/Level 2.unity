@@ -83609,9 +83609,18 @@ MonoBehaviour:
   lastCheckPoint: {x: -18.5, y: -4}
   playerPrefab: {fileID: 7771808343834569380, guid: af80bc4bf0d6caa49be169f9c855086b,
     type: 3}
+  pausePrefab: {fileID: 2136684140277180109, guid: 048183be2a500c2ed8fce572e885290a,
+    type: 3}
+  gameOverPrefab: {fileID: 1065536683065149028, guid: 235cc113b0276c12fa28beaa0a752622,
+    type: 3}
+  winPrefab: {fileID: 6893368412426791817, guid: 54455dd3eb5f2e546bef1ff1107a2a08,
+    type: 3}
+  failedPrefab: {fileID: 7113508262742418013, guid: 9a4e2a768689bbc24a84e5770069c33d,
+    type: 3}
   livesPlayer: 2
   isGameFinished: 0
   currentLevel: 2
+  maxLevel: 3
 --- !u!1 &1694048899 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4642948877106205498, guid: 679f0aae99a458617826e00394b6314f,
