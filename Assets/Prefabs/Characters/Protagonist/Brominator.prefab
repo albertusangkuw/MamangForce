@@ -146,7 +146,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 805f50a49fa77c55d95283fd1997cba4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 0
+  type: 1
   mainBullet: {fileID: 9051554397422233366, guid: e1d72a7f391d083298c3acba2f8ae7e6,
     type: 3}
   specialBullet: {fileID: 5549433819929909574, guid: c9ee34a5c8c79137aa54ece2380eee24,
@@ -157,6 +157,7 @@ MonoBehaviour:
   specialGunAmmo: 10
   specialGunBurst: 1
   health: 100
+  isPause: 0
 --- !u!114 &914847517703417816
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -176,6 +177,7 @@ MonoBehaviour:
   specialGun: 122
   fireRate: 0.05
   climbRate: 0.15
+  isControl: 1
 --- !u!61 &7771808343834569390
 BoxCollider2D:
   m_ObjectHideFlags: 0
