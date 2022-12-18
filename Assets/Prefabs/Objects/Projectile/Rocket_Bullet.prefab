@@ -169,6 +169,11 @@ MonoBehaviour:
   damage: 100
   range: 12
   whiteList: {fileID: 0}
+  targetList:
+  - Object
+  - SpaceLimit
+  - EnemyDoor
+  explosionPrefab: {fileID: 139366, guid: b185c1a9cf067374586d095111b15bd1, type: 3}
   timeBeforeExplode: 0
   durationExplosion: 0.025
   radiusExplosion: 0.3
