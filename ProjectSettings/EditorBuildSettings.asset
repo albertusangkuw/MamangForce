@@ -17,18 +17,18 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Level/Level 2.unity
     guid: 735eec35dd0f8c447819f4babecef427
-  - enabled: 1
-    path: Assets/Scenes/Level/Level 3.unity
-    guid: f7d370943855c49eba11d1979e65669a
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 1
     path: Assets/Scenes/Level/Level 3.unity
     guid: b336373442803f549b70d7d11c0dec21
   - enabled: 1
     path: Assets/Scenes/Menu/ConditionLost.unity
     guid: 29f0f5a51cbe20442bd01b8d3a83c29f
-  - enabled: 1
-    path: Assets/Scenes/Menu/ConditionWin.unity
-    guid: 6ebb464ee7db8784f8e5924f89063d27
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 1
     path: Assets/Scenes/Menu/Confirmation.unity
     guid: c245532489c8243d295081f387eb6b0f
