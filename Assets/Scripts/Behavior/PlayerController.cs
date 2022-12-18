@@ -8,6 +8,7 @@ public enum PlayerType
     Prisoner,
     Soldier,
     Boss,
+    UnLabeled
 }
 public enum PlayerState
 {
@@ -19,7 +20,7 @@ public enum PlayerState
 }
 public class PlayerController : MonoBehaviour
 {
-    public PlayerType type = PlayerType.Prisoner;
+    public PlayerType type = PlayerType.UnLabeled;
     public GameObject mainBullet;
     public GameObject specialBullet;
     public float moveSpeed = 30;
@@ -29,19 +30,22 @@ public class PlayerController : MonoBehaviour
     public float specialGunAmmo = 4;
     public float specialGunBurst = 4;
     public float health = 100;
-
-    private bool isOnGround = false;
-    private bool isFacingForward = true;
-    public bool isLadder;
-    private bool isClimbing;
-    private bool isDead = false;
-    private int currentState = (int)PlayerState.Idle;
-    private Animator animationComponent;
-    private Rigidbody2D rigidComponent;
+    public bool isPause = false;
     
-    private float speed = 5f;
-    private float defaultGravityScale;
-    private float originalMoveSpeed;
+
+    protected bool isOnGround = false;
+    protected bool isFacingForward = true;
+    protected bool isLadder;
+    protected bool isClimbing;
+    protected bool isDead = false;
+    
+    protected int currentState = (int)PlayerState.Idle;
+    protected Animator animationComponent;
+    protected Rigidbody2D rigidComponent;
+
+    protected float speed = 5f;
+    protected float defaultGravityScale;
+    protected float originalMoveSpeed;
 
     // Start is called before the first frame update
     void Start()
@@ -52,13 +56,30 @@ public class PlayerController : MonoBehaviour
         defaultGravityScale = rigidComponent.gravityScale;
     }
 
-    // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
         animationComponent.SetFloat("Speed", Mathf.Abs(rigidComponent.velocity.x));
         Debug.Log(((PlayerState)currentState).ToString() + " ; " + isOnGround + ";" + rigidComponent.velocity.x + "u/s");
+        if(isPause || isDead){
+            rigidComponent.bodyType = RigidbodyType2D.Static;
+            return;
+        }else{
+            rigidComponent.bodyType = RigidbodyType2D.Dynamic;
+        }
+        if (health <= 0)
+        {
+            currentState = (int)PlayerState.Dead;
+            if (isDead){
+                return;
+            }
+            rigidComponent.bodyType = RigidbodyType2D.Static;
+            transform.Rotate(transform.eulerAngles.x, transform.eulerAngles.y, 90, Space.Self);
+            isDead = true;
+            GamePlay.Instance.UpdatePlayerState(this);
+            type = PlayerType.UnLabeled;
+            Destroy(gameObject, 1);
+        }
     }
-
     public void Forward()
     {
         if (Mathf.Abs(rigidComponent.velocity.x) > maxVelocity.x)
@@ -102,10 +123,11 @@ public class PlayerController : MonoBehaviour
     public void Climb(float verticalAxisRaw)
     {
         float speed = 40f;
-        if (isLadder){
-            rigidComponent.velocity = new Vector2(0,0);
+        if (isLadder)
+        {
+            rigidComponent.velocity = new Vector2(0, 0);
             rigidComponent.gravityScale = 0f;
-            transform.Translate(Vector2.up*verticalAxisRaw*speed*Time.deltaTime);
+            transform.Translate(Vector2.up * verticalAxisRaw * speed * Time.deltaTime);
         }
     }
 
@@ -163,58 +185,72 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        if(isPause){
+            return;
+        }
+        // Check Ground
         if (other.CompareTag("Object"))
         {
             currentState = (int)PlayerState.Idle;
             isOnGround = true;
         }
-
-        if (other.CompareTag("Bullet")){
+        // Check Bullet Hit
+        if (other.CompareTag("Bullet"))
+        {
             var b = other.GetComponent<Bullet>();
-            if(b.whiteList != gameObject){
-                health-=b.damage;
+            if (b.whiteList != gameObject)
+            {
+                health -= b.damage;
             }
         }
-        if(other.CompareTag("SpaceLimit")){
-            health-=health;
+        // Check if Out of Space Limit
+        if (other.CompareTag("SpaceLimit"))
+        {
+            health = 0;
         }
-        if(health <= 0 && isDead == false){
-            Dead();
-        }
-        if (other.CompareTag("Ladder")){
+
+        // Check Ladder
+        if (other.CompareTag("Ladder"))
+        {
             isLadder = true;
             Debug.Log("Ladder is True");
         }
-    }
+        // Check is Prisoner
+        if (other.CompareTag("Player"))
+        {
+            var anotherPlayer = other.GetComponent<PlayerController>();
+            if (anotherPlayer.type.Equals(PlayerType.Prisoner))
+            {
+                GamePlay.Instance.playerPrefab = other.gameObject;
+                GamePlay.Instance.livesPlayer += 1;
+                GamePlay.Instance.changeTargetCamera(0,other.gameObject);
+                other.GetComponent<ControlScheme>().isControl = true;
+                Destroy(gameObject);
+            }
+        }
 
+    }
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if(collision.CompareTag("Ladder")){
+        if(isPause){
+            return;
+        }
+        if (collision.CompareTag("Ladder"))
+        {
             isLadder = false;
             rigidComponent.gravityScale = defaultGravityScale;
             Debug.Log("Ladder is False");
         }
-        if(collision.CompareTag("Player")){
-         
-        }
     }
 
-    private void Dead(){
-        currentState = (int) PlayerState.Dead;
-        if(isDead){
-            return;
-        }
-        isDead = true;
-        transform.Rotate(transform.eulerAngles.x, transform.eulerAngles.y, 90, Space.Self);
-        GamePlay.Instance.UpdatePlayerState(this);
-    }
 
-    private void SavedPrisoner(){
-        GamePlay.Instance.UpdatePlayerState(this);
-    }
     public PlayerState GetCurrentState()
     {
-    
         return (PlayerState)currentState;
     }
+    public bool GetIsDead()
+    {
+        return isDead;
+    }
+
 }
