@@ -28,7 +28,7 @@ public class Background : MonoBehaviour
         float dist = (target.transform.position.x * parallaxEffectMultiplier.x);
 
         transform.position = new Vector3(lastPosition.x + dist, 
-                                         transform.position.y, 
+                                         target.transform.position.y, 
                                          transform.position.z);
         if(temp > lastPosition.x + sizeSprite.x){
             lastPosition += sizeSprite;

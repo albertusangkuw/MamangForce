@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Explosion : Bullet
 {
-
+    public GameObject explosionPrefab;
     protected CircleCollider2D  colliderRange;
 
     private bool isExploded = false;
@@ -38,6 +38,8 @@ public class Explosion : Bullet
         colliderRange.radius = radiusExplosion;
         rigidComponent.velocity = Vector2.zero;
         isExploded = true;
+        var explodeInstance = Instantiate(explosionPrefab, transform.position, Quaternion.Euler(new Vector3(0, 0, 0)));
+        Destroy(explodeInstance,1);
         Destroy(gameObject, durationExplosion);
     }
 
