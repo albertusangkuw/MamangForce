@@ -229,15 +229,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 3
-  mainBullet: {fileID: 9051554397422233366, guid: e1d72a7f391d083298c3acba2f8ae7e6,
+  mainBullet: {fileID: 3453597213341460731, guid: d78743c69278d4c7890f7580582d4fcf,
     type: 3}
-  specialBullet: {fileID: 0}
+  specialBullet: {fileID: 5549433819929909574, guid: c9ee34a5c8c79137aa54ece2380eee24,
+    type: 3}
   moveSpeed: 30
   jumpSpeed: 600
   maxVelocity: {x: 9, y: 5}
   specialGunAmmo: 4
   specialGunBurst: 4
   health: 5000
+  isPause: 0
 --- !u!114 &-7690735480594794344
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -250,6 +252,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec1ec846c1af9f3ae84980ef6a1d9cc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  botSensor: {fileID: 3935667231209370316, guid: 1ff86314b6a79621384133ab4a90221f,
+    type: 3}
+  minWalk: 0
+  maxWalk: 2
+  maxCoolDownTime: 3
+  patrollRange: 10
+  canWalk: 1
+  fireRate: 0.5
 --- !u!1 &4513440153013383270
 GameObject:
   m_ObjectHideFlags: 0

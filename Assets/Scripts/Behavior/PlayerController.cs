@@ -252,5 +252,7 @@ public class PlayerController : MonoBehaviour
     {
         return isDead;
     }
-
+    public bool GetIsFacingForward(){
+        return isFacingForward;
+    }
 }

@@ -10,6 +10,8 @@ public class Bullet : MonoBehaviour
     public int damage = 100;
     public float range = 12;
     public GameObject whiteList;
+
+    public string[] targetList = {"Object", "SpaceLimit", "EnemyDoor"};
     protected Vector2 initialDirection;
     protected Rigidbody2D rigidComponent;
     // Start is called before the first frame update
@@ -32,16 +34,20 @@ public class Bullet : MonoBehaviour
     }
 
     private void OnTriggerEnter2D(Collider2D other) {
+      if(other.gameObject.CompareTag("Untagged")){
+        return;
+      }
       if(other.gameObject.Equals(whiteList)) {
         return;
       }
-      if(other.gameObject.CompareTag("Ladder")){
-         return;
+      foreach (var item in targetList){
+       if(other.gameObject.CompareTag(item)){
+          Destroy(gameObject);   
+          return;
+       } 
       }
-      if(other.gameObject.CompareTag("Bullet")){
-         return;
-      }
-      Destroy(gameObject);
+      
+      
 
     }
 }

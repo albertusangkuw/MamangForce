@@ -78,7 +78,6 @@ GameObject:
   - component: {fileID: 5378833583581126049}
   - component: {fileID: 6504001807371317695}
   - component: {fileID: -946641370402094}
-  - component: {fileID: 8397528871649136242}
   m_Layer: 0
   m_Name: Bomber
   m_TagString: AttackingTeam
@@ -260,8 +259,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 805f50a49fa77c55d95283fd1997cba4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 1
-  mainBullet: {fileID: 9051554397422233366, guid: e1d72a7f391d083298c3acba2f8ae7e6,
+  type: 2
+  mainBullet: {fileID: 5549433819929909574, guid: c9ee34a5c8c79137aa54ece2380eee24,
     type: 3}
   specialBullet: {fileID: 0}
   moveSpeed: 30
@@ -270,6 +269,7 @@ MonoBehaviour:
   specialGunAmmo: 4
   specialGunBurst: 4
   health: 100
+  isPause: 0
 --- !u!114 &-946641370402094
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -282,29 +282,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec1ec846c1af9f3ae84980ef6a1d9cc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!61 &8397528871649136242
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5378833583581126052}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0.000000029802322, y: 0.0010751188}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.12, y: 0.18}
-    newSize: {x: 0.12, y: 0.18}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.7263687, y: 0.18215024}
-  m_EdgeRadius: 0
+  botSensor: {fileID: 3935667231209370316, guid: 1ff86314b6a79621384133ab4a90221f,
+    type: 3}
+  minWalk: 0
+  maxWalk: 2
+  maxCoolDownTime: 3
+  patrollRange: 10
+  canWalk: 1
+  fireRate: 2
