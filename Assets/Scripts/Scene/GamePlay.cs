@@ -184,10 +184,7 @@ public class GamePlay : MonoBehaviour
         var curr = currPlayer.GetComponent<PlayerController>();
         curr.type = PlayerType.UnLabeled;
         //Hitung score
-        int poinBoss = 15;
-        int poinPrisoner = 10;
-        int poinSoldier = 5;
-        var totalScore= poinBoss * killedBoss + poinPrisoner * relasedPrisoner + poinSoldier * killedSoldier;
+        var  totalScore = getCurrentScore();
         //Tampilkan Score
         ShowScoreMissionSuccess(totalScore);
         
@@ -199,6 +196,14 @@ public class GamePlay : MonoBehaviour
         }else{
             SceneChanger.ChangeScene("GameOver");
         }
+    }
+
+    public int getCurrentScore(){
+        int poinBoss = 15;
+        int poinPrisoner = 10;
+        int poinSoldier = 5;
+        var totalScore = poinBoss * killedBoss + poinPrisoner * relasedPrisoner + poinSoldier * killedSoldier;
+        return totalScore;
     }
     void OnDestory()
     {
